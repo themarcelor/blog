@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Jvm And Garbage Collection | TheMarceloR</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Jvm And Garbage Collection" />
+<meta name="author" content="Marcelo Costa" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="JVM e Garbage Collection Oi Pessoal, tudo bem? Starting here the 1º blog post, I’m going to try to create an opuscule (i.e., a wee text) about Garbage Collection e the Java Virtual Machine. This is for those of you that never programmed even a pathetic HelloWorld class and whoever wants to reinforce existing knowledge, e.g., something you learned during the SCJA (Sun Certified Java Associate) studies. Let us jump right into it and start with the first universal truth:" />
+<meta property="og:description" content="JVM e Garbage Collection Oi Pessoal, tudo bem? Starting here the 1º blog post, I’m going to try to create an opuscule (i.e., a wee text) about Garbage Collection e the Java Virtual Machine. This is for those of you that never programmed even a pathetic HelloWorld class and whoever wants to reinforce existing knowledge, e.g., something you learned during the SCJA (Sun Certified Java Associate) studies. Let us jump right into it and start with the first universal truth:" />
+<link rel="canonical" href="http://localhost:4000/2011/01/20/jvm-and-garbage-collection.html" />
+<meta property="og:url" content="http://localhost:4000/2011/01/20/jvm-and-garbage-collection.html" />
+<meta property="og:site_name" content="TheMarceloR" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-01-20T00:00:00+00:00" />
+<script type="application/ld+json">
+{"description":"JVM e Garbage Collection Oi Pessoal, tudo bem? Starting here the 1º blog post, I’m going to try to create an opuscule (i.e., a wee text) about Garbage Collection e the Java Virtual Machine. This is for those of you that never programmed even a pathetic HelloWorld class and whoever wants to reinforce existing knowledge, e.g., something you learned during the SCJA (Sun Certified Java Associate) studies. Let us jump right into it and start with the first universal truth:","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2011/01/20/jvm-and-garbage-collection.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Jvm And Garbage Collection","dateModified":"2011-01-20T00:00:00+00:00","datePublished":"2011-01-20T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/20/jvm-and-garbage-collection.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/">TheMarceloR</a></h1>
+        
+        
+          <img src="/assets/img/logo.png" alt="Logo" />
+        
+
+        <p>::Troubleshooting, Coding and Comic Books</p>
+
+        
+
+        
+
+        
+        <nav>
+<ul>
+  <li>
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+<ul>
+  
+    <li>
+      <a href="/2011/01/21/main-gc-algorithms.html">Main Gc Algorithms</a>
+    </li>
+  
+    <li>
+      <a href="/2011/01/20/jvm-and-garbage-collection.html">Jvm And Garbage Collection</a>
+    </li>
+  
+</ul>
+</nav>
+
+      </header>
+      <section>
+      
+      <h1>Jvm And Garbage Collection</h1>
+<p>20 Jan 2011 - Marcelo Costa</p>
+
+<p>JVM e Garbage Collection
+Oi Pessoal, tudo bem? Starting here the 1º blog post, I’m going to try to create an opuscule (i.e., a wee text) about Garbage Collection e the Java Virtual Machine. This is for those of you that never programmed even a pathetic HelloWorld class and whoever wants to reinforce existing knowledge, e.g., something you learned during the SCJA (Sun Certified Java Associate) studies. Let us jump right into it and start with the first universal truth:</p>
+
+<p>The JVM is Chaotic</p>
+
+<p>The Garbage Collection is not performed immediatly after an object loses its reference, the JVM waits until a few lost objects start to accumulate. Think of it as a Cleaning Lady that is watching TV and, after her boss’s children finished their fun activities on the living room she decides (whenever she wants) to collect the toys, sweep, vacuum the carpet (i.e., GC).</p>
+
+<p>stack_and_heap</p>
+
+<p>Look at the image above, on the left side we have the Stack (where the reference variable is) and on the right side we have the Heap (where the actual object is), if we add the following line of code:</p>
+
+<p>my_birth = null;</p>
+
+<p>Our cleaning lady will already know that, at some point in time, she will have to take care of that useless object that was left in ‘0x01abcdef’, we can’t do anything about it, just ask nicely:</p>
+
+<p>System.gc();</p>
+
+<p>In other words, “Hey Consuela, can you please clean that room over there?” (but that will only make her give more attention to that particular region, she will not do anything immediately).
+–
+So, how does the GC works? Well, we know that GC will occur on objects that do not have references, so the first algorithm that we should talk about is the “Mark and Sweep”.</p>
+
+      
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+  </body>
+</html>
