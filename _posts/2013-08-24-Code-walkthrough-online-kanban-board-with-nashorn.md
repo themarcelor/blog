@@ -18,11 +18,11 @@ Ok, I won’t dive too much on the ‘httpsrv.js‘, it is just a humble upgrade
 
 So, let’s start with the HTML and CSS, at the end of this section we should see an interface like this:
 
-kanban
+![kanban](https://themarcelor.github.com/blog/assets/img/kanban.jpg)
 
 Here’s how the files were structured:
 
-folder_structure
+![folder_structure](https://themarcelor.github.com/blog/assets/img/folder_structure.jpg)
 
 The HTML is quite simple, as you can see, I’m just linking a bunch of stuff that I used to create a good client-side experience ( JQuery-UI for the Draggable and Editable components), then there’s the ‘mykanban.js’ file where I have the code that will be sending the AJAX requests, the post-its will be loaded within the ‘container’ div.
 
