@@ -11,7 +11,7 @@ The JVM is Chaotic
 
 The Garbage Collection is not performed immediatly after an object loses its reference, the JVM waits until a few lost objects start to accumulate. Think of it as a Cleaning Lady that is watching TV and, after her boss’s children finished their fun activities on the living room she decides (whenever she wants) to collect the toys, sweep, vacuum the carpet (i.e., GC).
 
-stack_and_heap
+![stack_and_heap](https://themarcelor.github.com/blog/assets/img/stack_and_heap.jpg)
 
 Look at the image above, on the left side we have the Stack (where the reference variable is) and on the right side we have the Heap (where the actual object is), if we add the following line of code:
 
