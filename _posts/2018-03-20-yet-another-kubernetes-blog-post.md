@@ -35,14 +35,19 @@ https://github.com/themarcelor/NginxTLSTerminationInK8SPOC
 
 The POC was conducted with:
 
-Minikube. This is a tiny Kubernetes engine running within a single VirtualBox VM. This is all you need to start playing with Kubernetes running your own experiments.
+- Minikube: This is a tiny Kubernetes engine running within a single VirtualBox VM. This is all you need to start playing with Kubernetes running your own experiments.
 Custom Docker images (created based on `centos:7` and `tomcat` images) hosted in my personal DockerHub space (e.g., https://github.com/themarcelor/NginxTLSTerminationInK8SPOC).
-Self Signed certificates (https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7).
+
+- Self Signed certificates (https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7).
+
 The objective was to introduce a side-car container to the main User Interface (UI) pod, whose container hosts the front-end layer of the overall system, and perform TLS termination (i.e., take the inbound encrypted HTTPS request and forward it to the underlying back-end app in unencrypted HTTP format). To make things more interesting, there was also an extra requirement to reinforce Web Sockets support.
 
 The idea was to load the “index.html” page hosted in the UI app and let the JS try to establish the Web Sockets communication through the WSS protocol:
 
+```
 var ws = new WebSocket("wss://"+window.location.host+"/mywebsocketsapp/echo");
+```
+
 The HTTPS communication hops through the Kubernetes overlay network and its “Service” forwards the request to the target pod. The entry point is the Nginx “side-car” container that mounts the k8s secrets containing the self-signed certificates required to initiate and terminate the TLS communication. The HTTPS request is then converted to HTTP and it finally arrives on the UI container (containing a Tomcat-hosted Java Web App).
 
 If everything is correctly assembled, the following flow is reproduced:

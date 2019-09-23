@@ -109,7 +109,6 @@ The JVM has approximately 200 “opcodes” to perform invocation of instruction
 | Opcode | Usage                                                   |
 
 | ------ | ------------------------------------------------------- |
-
 | Invokestatic | For static methods |
 
 | Invokevirtual | For non-private instance methods |

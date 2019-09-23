@@ -49,8 +49,7 @@ Quick review of the docker run syntax:
 
 | Parameter | Description                                 |
 
-| --------- | -----------                                 |
-
+| --------- | ------------------------------------------- |
 | -d (detached) | Runs in detached mode (not interactive) |
 
 | –name	| Name of the container |
