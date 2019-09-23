@@ -48,6 +48,9 @@
   <li>
     <a href="/about.html">About</a>
   </li>
+  <li>
+    <a href="/emacs.html">Emacs</a>
+  </li>
 </ul>
 </nav>
 
@@ -57,8 +60,9 @@
       <h1>Out Of Memory Errors And Heap Dumps</h1>
 <p>25 Jan 2011 - Marcelo Costa</p>
 
-<p>OMG! an Out Of Memory error!
-<img src="https://themarcelor.github.com/blog/assets/img/terror.jpg" alt="terror" /></p>
+<p>OMG! an Out Of Memory error!</p>
+
+<p><img src="https://themarcelor.github.com/blog/assets/img/terror.jpg" alt="terror" /></p>
 
 <p>Exception in thread “ThisIsM-YThread-0” java.lang.OutOfMemoryError: Java heap space.
 This error just showed up in your application logs? Run to the hills!</p>
@@ -78,24 +82,20 @@ This error just showed up in your application logs? Run to the hills!</p>
 <p>So, you can generate a Heap Dump to analyze these objects, here are a few methods to generate Heap Dumps:</p>
 
 <ol>
-  <li>
-    <p>-XX:+HeapDumpOnOutOfMemoryError</p>
-  </li>
-  <li>
-    <p>-XX:+HeapDumpOnCtrlBreak                                                              (Windows)</p>
-  </li>
-  <li>
-    <p>jmap -dump:format=b,file=HeapDump.hprof <pid>                (JVM’s PID)</pid></p>
-  </li>
+  <li>-XX:+HeapDumpOnOutOfMemoryError</li>
+  <li>-XX:+HeapDumpOnCtrlBreak (Windows)</li>
+  <li>jmap -dump:format=b,file=HeapDump.hprof <pid> (JVM’s PID)</pid></li>
 </ol>
 
-<p>*The HeapDump will be generated in the ‘working directory’
+<ul>
+  <li>The HeapDump will be generated in the ‘working directory’
 (e.g., In Tomcat, the HeapDump is generated in the /bin folder)
-Here’s a good resource that gathers all the best approaches to generate Heap Dumps:</p>
+Here’s a good resource that gathers all the best approaches to generate Heap Dumps:</li>
+</ul>
 
 <p>http://wiki.sdn.sap.com/wiki/pages/viewpage.action?pageId=33456</p>
 
-<p>How do I read a Heap Dump?</p>
+<h1 id="how-do-i-read-a-heap-dump">How do I read a Heap Dump?</h1>
 
 <p>You are going to need a tool that can interpret the Heap Dump, I recommend IBM Heap Analyzer and the Eclipse Memory Analyzer. If you already generated your Heap Dump file in the .hprof format so it is ready to be analyzed.</p>
 
@@ -103,11 +103,13 @@ Here’s a good resource that gathers all the best approaches to generate Heap D
 
 <p>1) Run the ‘ha398.jar’ file with the following command:</p>
 
-<p>java -jar ha398.jar
-If the Heap Dump is a large file, you might need to allocate more memory to the tool:</p>
+<p><code class="highlighter-rouge">java -jar ha398.jar</code></p>
 
-<p>java -Xmx1800m -jar ha398.jar
-If you have a decent machine, eventually you will gonna get through this screen here:</p>
+<p>If the Heap Dump is a large file, you might need to allocate more memory to the tool:</p>
+
+<p><code class="highlighter-rouge">java -Xmx1800m -jar ha398.jar</code></p>
+
+<p>If you have a decent machine, eventually you will gonna get through this screen here:</p>
 
 <p><img src="https://themarcelor.github.com/blog/assets/img/heap_analysis_1.jpg" alt="heap_analysis_1" /></p>
 

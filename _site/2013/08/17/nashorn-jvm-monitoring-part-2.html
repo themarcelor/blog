@@ -48,6 +48,9 @@
   <li>
     <a href="/about.html">About</a>
   </li>
+  <li>
+    <a href="/emacs.html">Emacs</a>
+  </li>
 </ul>
 </nav>
 
@@ -71,108 +74,141 @@ Monitor the JVM while running a Nashorn application
 Running a test script
 The Nashorn engine can be loaded in a Java class and then, with the instance of the ScriptEngine object, use the eval() method to execute Javascript code. Just write and compile the following class:</p>
 
-<p>import javax.script.*;
-public class EvalFile {
- public static void main(String[] args) throws Exception {
-     // create a script engine manager
-     ScriptEngineManager factory = new ScriptEngineManager();
-     // create JavaScript engine
-     ScriptEngine engine = factory.getEngineByName(“nashorn”);
-     // evaluate JavaScript code from given file - specified by first argument
-     engine.eval(new java.io.FileReader(args[0]));
- }
-}
-Once you have your ‘EvalFile’ class ready, create a dummy .js file just to give it a try, write something like:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">javax.script.*</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EvalFile</span> <span class="o">{</span>
+ <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+     <span class="c1">// create a script engine manager</span>
+     <span class="nc">ScriptEngineManager</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ScriptEngineManager</span><span class="o">();</span>
+     <span class="c1">// create JavaScript engine</span>
+     <span class="nc">ScriptEngine</span> <span class="n">engine</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getEngineByName</span><span class="o">(</span><span class="s">"nashorn"</span><span class="o">);</span>
+     <span class="c1">// evaluate JavaScript code from given file - specified by first argument</span>
+     <span class="n">engine</span><span class="o">.</span><span class="na">eval</span><span class="o">(</span><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">FileReader</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]));</span>
+ <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Once you have your ‘EvalFile’ class ready, create a dummy .js file just to give it a try, write something like:</p>
 
-<p>print(‘Hello World’);
-Then you can execute this script like this:</p>
+<p><code class="highlighter-rouge">print('Hello World');</code></p>
 
-<p>java -cp nashorn.jar:. EvalFile dummy.js
-In order to speed things up, I’ve created an alias to invoke the ‘jjs’ command-line tool so I don’t have to use this EvalFile class.</p>
+<p>Then you can execute this script like this:</p>
 
-<p>$alias jjs=’/var/jdk8/openjdk8/nashorn/bin/jjs’
-now, the .js file can be executed like this:</p>
+<p><code class="highlighter-rouge">java -cp nashorn.jar:. EvalFile dummy.js</code></p>
 
-<p>jjs dummy.js
-Moving on, my test script here will only be used to explore how we can keep track of the chain of function calls and the number/size of objects that are being allocated into the JVM’s heap, if you really want to experience the power of Nashorn, you can refer to the official ‘Java Scripting Programmer’s Guide‘.</p>
+<p>In order to speed things up, I’ve created an alias to invoke the ‘jjs’ command-line tool so I don’t have to use this EvalFile class.</p>
+
+<p><code class="highlighter-rouge">$alias jjs='/var/jdk8/openjdk8/nashorn/bin/jjs'</code></p>
+
+<p>now, the .js file can be executed like this:</p>
+
+<p><code class="highlighter-rouge">jjs dummy.js</code></p>
+
+<p>Moving on, my test script here will only be used to explore how we can keep track of the chain of function calls and the number/size of objects that are being allocated into the JVM’s heap, if you really want to experience the power of Nashorn, you can refer to the official ‘Java Scripting Programmer’s Guide‘.</p>
 
 <p>This test comprises two files:</p>
 
 <p>— Model.js —</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">address</span><span class="p">,</span> <span class="nx">phone</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">address</span> <span class="o">=</span> <span class="nx">address</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">phone</span> <span class="o">=</span> <span class="nx">phone</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sayHello</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="dl">"</span><span class="s2">Hi, my name is </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>— testNashorn.js —</p>
 
-<p>function Person(name, address, phone) {
-    this.name = name;
-    this.address = address;
-    this.phone = phone;
-    this.sayHello = function() {
-        return “Hi, my name is “ + this.name;
-    }
-}
-— testNashorn.js —</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#!/usr/bin/jjs
+</span><span class="err">#</span>
+<span class="kd">var</span> <span class="nx">Thread</span> <span class="o">=</span> <span class="nx">java</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">Thread</span><span class="p">;</span>
+<span class="nx">load</span><span class="p">(</span><span class="dl">"</span><span class="s2">./Model.js</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="dl">"</span><span class="s2">Welcome to testNashorn.js</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">people</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">"</span><span class="s2">Marcelo</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Caucaia Street 17</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">+353 086 5555555</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">people</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//Lots of objects were allocated into memory at this point </span>
+<span class="nx">Thread</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">30000</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">people</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">sayHello</span><span class="p">();</span>
+    <span class="nx">print</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">myFunction</span><span class="p">();</span>
+</code></pre></div></div>
 
-<p>#!/usr/bin/jjs
-#
-var Thread = java.lang.Thread;
-load(“./Model.js”);
-print(“Welcome to testNashorn.js”);
-var people = [];
-for(var i=0;i&lt;100;i++){
-    var p = new Person(“Marcelo”,”Caucaia Street 17”,”+353 086 5555555”);
-    people.push(p);
-}
-//Lots of objects were allocated into memory at this point 
-Thread.sleep(30000);
-var myFunction = function(){
-    var text = people[0].sayHello();
-    print(text);
-};
-myFunction();
-The first one (Model.js) is where I’m declaring my Person “Class”, 3 attributes and 1 meth.. sorry, function, the second file (testNashorn.js) is the actual program, it first transforms the Thread Java class into a Javascript variable, then loads the Model.js, i.e., runs the Javascript code inside that file and prepares our Person() function/constructor, it declares an empty objects array and enters a loop instruction that is going to create 100 objects in memory, after the ‘for’ loop, as I will need a second to trigger my script to generate a heap dump, I decided to add a ‘Thread.sleep(30000)’ there (30 secs is more than enough), once the program awakes, it declares a function (myFunction) that is going to print the value returned by the ‘sayHello()’ function from the first object stored in the ‘people’ array, this function is then called right afterwards.</p>
+<p>The first one (Model.js) is where I’m declaring my Person “Class”, 3 attributes and 1 meth.. sorry, function, the second file (testNashorn.js) is the actual program, it first transforms the Thread Java class into a Javascript variable, then loads the Model.js, i.e., runs the Javascript code inside that file and prepares our Person() function/constructor, it declares an empty objects array and enters a loop instruction that is going to create 100 objects in memory, after the ‘for’ loop, as I will need a second to trigger my script to generate a heap dump, I decided to add a ‘Thread.sleep(30000)’ there (30 secs is more than enough), once the program awakes, it declares a function (myFunction) that is going to print the value returned by the ‘sayHello()’ function from the first object stored in the ‘people’ array, this function is then called right afterwards.</p>
 
 <p>Now, we can run the program:</p>
 
-<p>jjs testNashorn.js
-The output should be something like this:</p>
+<p><code class="highlighter-rouge">jjs testNashorn.js</code></p>
 
-<p>Welcome to testNashorn.js
+<p>The output should be something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Welcome to testNashorn.js
 [30 sec pause]
 Hi, my name is Marcelo
-That’s it, we have our test script, let’s move on to the second topic.</p>
+</code></pre></div></div>
 
-<p>Understanding invokedynamic
-Ok, we already know that the Nashorn Javascript engine is 100% compliant with ECMA-262 5.1 and it is fully implemented with the new “invokedynamic” bytecode instruction, therefore, is faster and more compliant than Mozilla’s Rhino, but what’s invokedynamic?</p>
+<p>That’s it, we have our test script, let’s move on to the second topic.</p>
+
+<h1 id="understanding-invokedynamic">Understanding invokedynamic</h1>
+
+<p>Ok, we already know that the Nashorn Javascript engine is 100% compliant with ECMA-262 5.1 and it is fully implemented with the new “invokedynamic” bytecode instruction, therefore, is faster and more compliant than Mozilla’s Rhino, but what’s invokedynamic?</p>
 
 <p>Executing Java code is not the JVM’s solely purpose, every Java code is compiled into bytecode and this is the piece that gets consumed and processed by the JVM, if a programming language can be compiled to bytecode than its instructions can be interpreted by the JVM (e.g., Closure or Scala). The bytecode is an efficient simplified form of non-human-readable code that is executed closer to machine-level instructions, i.e., better performance.</p>
 
 <p>The JVM has approximately 200 “opcodes” to perform invocation of instructions, handle access to fields and control objects and arrays. The following table presents the types of invocation bytecode operations that were available before JDK version 7:</p>
 
-<p>Opcode</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Opcode</th>
+      <th style="text-align: left">Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Invokestatic</td>
+      <td style="text-align: left">For static methods</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Usage</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Invokevirtual</td>
+      <td>For non-private instance methods</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Invokestatic</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Invokespecial</td>
+      <td>For private instance</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>For static methods</p>
-
-<p>Invokevirtual</p>
-
-<p>For non-private instance methods</p>
-
-<p>Invokespecial</p>
-
-<p>For private instance</p>
-
-<p>Invokeinterface</p>
-
-<p>For the receiver that implements the interface</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Invokeinterface</td>
+      <td>For the receiver that implements the interface</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>A simple invocation to a method starts from a given “Call Site”, which is from where the request is initiated; it is assembled with the name of the method, the signature (access level, modifiers and return type) and the arguments that are processed by this method, the JVM will process this Call Site information and go through a set of operations: It is going to look for that method’s code within memory (Lookup), check if the types involved in the operations match (Type Checking), invokes the actual code (Branch) and then caches the location of that method so, if it is going to be needed again soon, the JVM already knows that memory address and speeds up the process (Cache).</p>
 
-<p>normalCall</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/normalcall.jpg" alt="normalcall" /></p>
 
 <p>The new “Invokedynamic” bytecode operation allows the JVM to customize how the resources for the Call Site are assembled (dynamically) and also perform a different set of operations within the JVM so the field or method can be accessed (invoked). Instead of the regular Call Site, it integrates bytecode (invokedynamic operation with name and signature) with a bootstrap method, this is the component that will connect the Call Site with the “Method Handle”, once the handle finds the correct way of making this invocation occurs, the JVM will optimize the operation and the invokedynamic bytecode will be attached to the “Target Method” to avoid processing all these steps again. In a scenario where a scripting language that is running within the JVM needs to access a specific function, it is going to initiate the process by providing the bootstrap method with the invokedynamic instructions (name of the function followed by arguments and the return type), the JVM will look for the function within a Method Table (list of functions that are not associated to any object or class) based on the arguments that are defined at runtime (Lookup), once it finds the function, it will perform some language-specific type checking (Type Checking) and then it will finish the bootstrap process connecting the Call Site with the Method Handle so it can be executed (Branch), this connection is performed only once but Call Sites can be connected to new Method Handles.</p>
 
-<p>dynamicCall</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/dynamiccall.jpg" alt="dynamiccall" /></p>
 
 <p>If you want a more in depth explanation, I strongly recommend this blog post here:</p>
 
@@ -181,17 +217,17 @@ Ok, we already know that the Nashorn Javascript engine is 100% compliant with EC
 <p>Monitoring the JVM while running a Nashorn application
 We have reached the last part today’s post, it’s time to diagnose the Rhinoceros (or… at least, try).</p>
 
-<p>diagnoseNashorn</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/diagnosenashorn.jpg" alt="diagnosenashorn" /></p>
 
 <p>Let’s start with some Thread Dumps: if we run our testNashorn.jjs and take a few thread dumps (using the instructions documented in our previous post), this is what we get once we load them into our Thread Dump analyzer:</p>
 
-<p>ThreadDumpNashorn</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/screen-shot-2013-08-17-at-17-34-05.png" alt="screen-shot-2013-08-17-at-17-34-05" /></p>
 
 <p>That’s it, say goodbye to the good-old readable stack trace. On this first analysis we reinforced once more how this change of paradigm will affect the way Java Performance Analysis and Troubleshooting is done nowadays, the chain of execution presented on the stack trace of the “Main” thread resembles bytecode instructions, the best clue to easily identify what initiated each set of instructions is the name of the Javascript file that is declared in the “jdk.nashorn.internal.scripts.Script” class (it can be found at the bottom of the stack trace), there are some familiar things there like the JVM native and internal threads but the rest got pretty cryptic for me.</p>
 
 <p>So, what’s our alternative? As far as I know, there isn’t any. We can only use some arguments to run the program and get some debug data that is supposed to give us some clues as to where the calls are coming from, but it is not very clear. I believe that, if we grok the concepts behind ‘invokedynamic’, we can use the “–print-code” Nashorn argument and produce some debugging output that can be interpreted based on the dynamic calls that are generated by the Nashorn engine:</p>
 
-<p>–print-code</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/screen-shot-2013-08-17-at-18-19-29.png" alt="screen-shot-2013-08-17-at-18-19-29" /></p>
 
 <p>We can also get more verbose results with the following command:</p>
 
@@ -200,13 +236,15 @@ What if the program hangs during the execution of a particular function? Under t
 
 <p>What about Heap Dumps? Let’s see what we get when we take a Heap Dump during the execution of our testNashorn.js script:</p>
 
-<p>HeapDumpNashorn</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/screen-shot-2013-08-17-at-15-32-46.png" alt="screen-shot-2013-08-17-at-15-32-46" /></p>
 
 <p>Yep, it also got a little weird here. Since we don’t have packages and typed classes, there’s no way to easily track down where are our “Classes” and the number/size of objects associated to them, I did some investigation and found this “jdk.nashorn.internal.scripts.JO” object that apparently serves as a wrapper to the objects created through Javascript functions, the downside is that it doesn’t separate the objects based on its “Class” (at least I didn’t find any parameter that pointed me anywhere near the “jdk.nashorn.internal.scripts.Script$Person” object), so if you have 100 instances of ‘Person’ and 100 instances of ‘Car’, they will be mingled in this sea of ‘JO’ instances (I haven’t tested other object forms yet, e.g., Object Literals; not sure if we would see something different). So, how do we easily keep track of the size of objects created from a given function()? Well, we could rely on the format of the attributes and play with OQL (Object Query Language) and isolate a given set of objects to determine how much space they are taking up, but that’s just messy. Currently, there are a few DEBUG parameters documented in “$OPENJDK8_HOME/nashorn/docs/DEVELOPER_README“, some of them are quite interesting and might provide the answers we need, e.g.:</p>
 
-<p>print(Debug.map(p));
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print(Debug.map(p));
 print(Debug.dumpCounters());
-Now, to conclude this post, I leave you with a message from Jim Laskey, this is one of the replies that he sent me when I was questioning his team about these concerns:</p>
+</code></pre></div></div>
+
+<p>Now, to conclude this post, I leave you with a message from Jim Laskey, this is one of the replies that he sent me when I was questioning his team about these concerns:</p>
 
 <p>“The next round of development will be focusing on tools, so what you are trying to accomplish will get easier. You have an opportunity to provide us guidance on this…. Stack crawls will get better once we start working on debugging APIs.”.</p>
 

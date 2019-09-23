@@ -48,6 +48,9 @@
   <li>
     <a href="/about.html">About</a>
   </li>
+  <li>
+    <a href="/emacs.html">Emacs</a>
+  </li>
 </ul>
 </nav>
 
@@ -61,29 +64,34 @@
 
 <p>In this post you will learn:</p>
 
-<p>What is Docker?
-How to install and run it
-More about Docker images
-How to return to the host-machine without killing my container?
-How to use your own internal Docker registry to store images
-How to push your image to Artifactory
-The Dockerfile: Best practices &amp; versioning
-How to copy a Docker image to some other Docker host
-Docker networking
-How to monitor containers
-So, let’s get started.</p>
+<ul>
+  <li>What is Docker?</li>
+  <li>How to install and run it</li>
+  <li>More about Docker images</li>
+  <li>How to return to the host-machine without killing my container?</li>
+  <li>How to use your own internal Docker registry to store images</li>
+  <li>How to push your image to Artifactory</li>
+  <li>The Dockerfile: Best practices &amp; versioning</li>
+  <li>How to copy a Docker image to some other Docker host</li>
+  <li>Docker networking</li>
+  <li>How to monitor containers</li>
+</ul>
 
-<p>What is Docker?
-It is magic powered by unicorn blood.</p>
+<p>So, let’s get started.</p>
+
+<h1 id="what-is-docker">What is Docker?</h1>
+
+<p>It is magic powered by unicorn blood.</p>
 
 <p>Think of it as a Virtual Machine but, instead of having the Operating System + Hypervisor layers below the application you want to run, it just shares a “sub-context” of the Linux Kernel and allows you to run other Linux’es within the same Linux — Completely separated virtual environments with their own libraries + OS tools + applications + exposed ports, etc. And why is it so cool? You might ask, once you assemble your container with everything you want, you can take a snapshot of that (which is known as a Docker IMAGE) and spin new containers. You can spin multiple instances of a given image, think of it in terms of OOP, where you can create instances out of a class, so you are doing basically the same thing by creating containers out of a Docker image.</p>
 
-<p>containers_and_vms</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/containers_and_vms.png" alt="containers_and_vms" /></p>
 
 <p>Beyond the virtualized, isolated characteristics, it is really time-efficient. There’s no Guest OS to boot here so you can actually start your container in a split second with the software you want, that, according to the actual command you set for it, it will start that process in the foreground for whatever purpose. If it is a web or an application server, it will just come up straight away, ready to service requests.</p>
 
-<p>How to install and run it
-The installation is very straight forward, you can find the details in the link below:
+<h1 id="how-to-install-and-run-it">How to install and run it</h1>
+
+<p>The installation is very straight forward, you can find the details in the link below:
 https://docs.docker.com/engine/installation/</p>
 
 <p>Don’t forget to start your Docker daemon:</p>
@@ -92,55 +100,144 @@ https://docs.docker.com/engine/installation/</p>
 
 <p>If you are in a Mac OS environment, find the little Docker icon on the top-right corner of your screen:</p>
 
-<p>docker_running</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/docker_running.png" alt="docker_running" /></p>
 
 <p>Then you can start a container and play in a completely isolated / virtualized environment:</p>
-<h1 id="docker-run--it-name-mycontainer-centos-binsh">docker run -it –name mycontainer centos /bin/sh</h1>
+
+<p><code class="highlighter-rouge"># docker run -it –name mycontainer centos /bin/sh</code></p>
 
 <p>Quick review of the docker run syntax:</p>
 
-<p>Parameter	Description
--d (detached)	Runs in detached mode (not interactive)
-–name	Name of the container
--h (hostname)	Hostname within the Docker network
-–link	Allow communication with another container in the Docker network
--p (port)	Exposed port ( <host_port>:<container_port>)
--v (volume)	Mapped volume/disk path (<host_path>:<container_path>)</container_path></host_path></container_port></host_port></p>
-<image>	Name of the docker image
--w (working directory)	Initial directory for the container command
--t (tty / terminal)	Assign pseudo-tty for the container
--i (input)	Set STDIN of the container (interactive)
-Here is a slightly more complex example (running a local project just to illustrate):
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Parameter</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">-d (detached)</td>
+      <td style="text-align: left">Runs in detached mode (not interactive)</td>
+    </tr>
+  </tbody>
+</table>
 
-# docker run -d –name mykanban -h mykanbanapp –link mydbcontainer -p 8080:8080 -w /opt/mykanban -v /home/marcelo/Projects/MyOnlineKanban/mykanban:/opt/mykanban java:8 /usr/bin/jjs – cp lib/mongo-2.10.1.jar httpsrv.js
+<table>
+  <tbody>
+    <tr>
+      <td>–name</td>
+      <td>Name of the container</td>
+    </tr>
+  </tbody>
+</table>
 
-More about Docker images
-So, let’s say I want to create my image with a “netcat” pre-installed. I would need to run:
+<table>
+  <tbody>
+    <tr>
+      <td>-h (hostname)</td>
+      <td>Hostname within the Docker network</td>
+    </tr>
+  </tbody>
+</table>
 
-# docker run -it –name my-docker-name centos /bin/sh
+<table>
+  <tbody>
+    <tr>
+      <td>–link</td>
+      <td>Allow communication between containers</td>
+    </tr>
+  </tbody>
+</table>
 
-If that is the first time you are trying to spin a container out of the “centos” image, the Docker daemon will go to Docker Hub and get that image for you:
+<table>
+  <tbody>
+    <tr>
+      <td>-p (port)</td>
+      <td>Exposed port ( <host_port>:<container_port>)</container_port></host_port></td>
+    </tr>
+  </tbody>
+</table>
 
-Unable to find image ‘centos:latest’ locally
+<table>
+  <tbody>
+    <tr>
+      <td>-v (volume)</td>
+      <td>Mapped volume/disk path (<host_path>:<container_path>)</container_path></host_path></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>&lt; image &gt;</td>
+      <td>Name of the docker image</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>-w (work dir.)</td>
+      <td>Initial directory for the container command</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>-t (tty/term.)</td>
+      <td>Assign pseudo-tty for the container</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>-i (input)</td>
+      <td>Set STDIN of the container (interactive)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here is a slightly more complex example (running a local project just to illustrate):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker run -d –name mykanban -h mykanbanapp –link mydbcontainer -p 8080:8080 -w /opt/mykanban -v /home/marcelo/Projects/MyOnlineKanban/mykanban:/opt/mykanban java:8 /usr/bin/jjs – cp lib/mongo-2.10.1.jar httpsrv.js
+</code></pre></div></div>
+
+<h1 id="more-about-docker-images">More about Docker images</h1>
+<p>So, let’s say I want to create my image with a “netcat” pre-installed. I would need to run:</p>
+
+<p><code class="highlighter-rouge"># docker run -it –name my-docker-name centos /bin/sh</code></p>
+
+<p>If that is the first time you are trying to spin a container out of the “centos” image, the Docker daemon will go to Docker Hub and get that image for you:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unable to find image ‘centos:latest’ locally
 latest: Pulling from library/centos
 a3ed95caeb02: Pull complete
 Digest: sha256:1a62cd7c773dd5c6cf08e2e28596f6fcc99bd97e38c9b324163e0da90ed27562
 Status: Downloaded newer image for centos:latest
+</code></pre></div></div>
 
-Then you can install what you need:
+<p>Then you can install what you need:</p>
 
-# yum install nc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum install nc
 
 Installed: nc.x86_64 2:6.40-7.el7 Complete!
+</code></pre></div></div>
 
-How to return to the host-machine without killing my container?
-If you entered a container with `docker exec` you can just type `exit` to leave the container. However, if you started a container with `docker run` then you should use the following shortcut:
+<p>How to return to the host-machine without killing my container?
+If you entered a container with <code class="highlighter-rouge">docker exec</code> you can just type <code class="highlighter-rouge">exit</code> to leave the container. However, if you started a container with <code class="highlighter-rouge">docker run</code> then you should use the following shortcut:</p>
 
-ctrl+p ctrl+q
+<p><code class="highlighter-rouge">ctrl+p ctrl+q</code></p>
 
-And now you can see that your container is still running (because you started it with a perpetual shell terminal process: /bin/sh):
+<p>And now you can see that your container is still running (because you started it with a perpetual shell terminal process: /bin/sh):</p>
 
-# docker ps -n 1
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker ps -n 1
 
 CONTAINER ID PORTS IMAGE COMMAND NAMES
 
@@ -149,90 +246,105 @@ So you can now “commit” that container and create your first DOCKER IMAGE (i
 
 # docker commit f03d4ba0a56f nc-server
 sha256:ff5450d8c2733cd1edc68e9eda344b2a4f53e297a449e713bfb3cd72a9ddfa9e
+</code></pre></div></div>
 
-Then it becomes part of the images available in this Docker Host server:
+<p>Then it becomes part of the images available in this Docker Host server:</p>
 
-# docker images
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker images
 
 REPOSITORY    IMAGE      ID             CREATED          SIZE
 nc-server     centos     ff5450d8c273   6 seconds ago    278.8 MB
-We can create new images out of base images for different purposes, we can even extend them for specific use cases.
+</code></pre></div></div>
 
-image_hierarchy
+<p>We can create new images out of base images for different purposes, we can even extend them for specific use cases.</p>
 
-How to use your own internal Docker registry to store images
- 
+<p><img src="https://themarcelor.github.com/blog/assets/img/image_hierarchy.png" alt="image_hierarchy" /></p>
 
-Here is how you connect to it:
+<h1 id="how-to-use-your-own-internal-docker-registry-to-store-images">How to use your own internal Docker registry to store images</h1>
 
-Go to artifactory, click on your user name on the top right:
+<p>Here is how you connect to it:</p>
 
-provide the password once more and click on the gear icon to generate an API key (i.e., the artifactory encrypted password).
+<p>Go to artifactory, click on your user name on the top right.</p>
 
-And, finally, login:
+<p>provide the password once more and click on the gear icon to generate an API key (i.e., the artifactory encrypted password).</p>
 
-# docker login artifactory.yourcompanydomain.com:6556
+<p>And, finally, login:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker login artifactory.yourcompanydomain.com:6556
 
 Username: your.name@yourcompanydomain.com
 Password:
 Login Succeeded
+</code></pre></div></div>
 
- 
+<h1 id="how-to-push-your-image-to-artifactory">How to push your image to artifactory</h1>
 
-How to push your image to artifactory
-First we need to tag it:
+<p>First we need to tag it:</p>
 
-Here’s the syntax =&gt; docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/] [USERNAME/]NAME[:TAG]
+<p>Here’s the syntax =&gt; docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/] [USERNAME/]NAME[:TAG]</p>
 
-# docker tag my-busybox artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test- tag
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker tag my-busybox artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test- tag
 
 # docker push artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag
 The push refers to a repository [artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag] 06cc5a7ff579: Pushed
 test-tag: digest: sha256:82b9618df57b5fc2ebed3d79c3d26e3ccb51e3f302348979b7534af555e2913a
 size: 940
+</code></pre></div></div>
 
-# docker images | grep test-tag
+<p>Checking results:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker images | grep test-tag
 REPOSITORY TAG IMAGE ID SIZE
 
 artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag  17 minutes ago 1.113 MB
+</code></pre></div></div>
 
-Pushed and tagged.
+<p>Pushed and tagged.</p>
 
-The Dockerfile: Best practices &amp; versioning
-Committing your docker container into an image is a bad practice because the whole process is very manual and not very flexible. Imagine that you want to install an earlier version of “netcat”, then you will need to jump inside a container that was created out of the image you committed earlier and then uninstall &amp; install another version of netcat. Or you need to create another container from scratch. It’s just too messy. Imagine a more granular change involving multiple points of configuration within the same container (e.g., service packs, JVM arguments, port configuration, OS-level tweaks, etc.), it’s a nightmare to manage all that by manually committing changes.
+<h1 id="the-dockerfile-best-practices--versioning">The Dockerfile: Best practices &amp; versioning</h1>
+<p>Committing your docker container into an image is a bad practice because the whole process is very manual and not very flexible. Imagine that you want to install an earlier version of “netcat”, then you will need to jump inside a container that was created out of the image you committed earlier and then uninstall &amp; install another version of netcat. Or you need to create another container from scratch. It’s just too messy. Imagine a more granular change involving multiple points of configuration within the same container (e.g., service packs, JVM arguments, port configuration, OS-level tweaks, etc.), it’s a nightmare to manage all that by manually committing changes.</p>
 
-Therefore, do not commit containers !!! THAT WAS JUST FOR SHOW! — USE DOCKERFILES!!!
+<p>Therefore, do not commit containers !!! THAT WAS JUST FOR SHOW! — USE DOCKERFILES!!!</p>
 
-Following good automation practices: if you need to apply a number of custom steps to assemble your container, it is a bad idea to spin it and commit it. To solve that problem we use the “Dockerfile”.
+<p>Following good automation practices: if you need to apply a number of custom steps to assemble your container, it is a bad idea to spin it and commit it. To solve that problem we use the “Dockerfile”.</p>
 
-dockerfile_versioning
+<p><img src="https://themarcelor.github.com/blog/assets/img/dockerfile_versioning.png" alt="dockerfile_versioning" /></p>
 
-1) Create a “Dockerfile” under your project folder: /home/user/Projects/my-nc-server
+<ul>
+  <li>
+    <p>Create a “Dockerfile” under your project folder: /home/user/Projects/my-nc-server</p>
+  </li>
+  <li>
+    <p>Introduce the instructions you need, e.g.:</p>
+  </li>
+</ul>
 
-2) Introduce the instructions you need, e.g.:
-FROM centos
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM centos
 MAINTAINER Marcelo Costa &lt;marceloc@whatever.com&gt;
 
 RUN yum -y install nc
 RUN yum -y install net-tools
+</code></pre></div></div>
 
-3) Create a new custom image with the following command (running within the “my-nc- server” directory):
+<ul>
+  <li>Create a new custom image with the following command (running within the “my-nc- server” directory):</li>
+</ul>
 
-# docker build .
-You can also introduce the [name-of-the-image]:[tag] notation with the “–tag” parameter:
+<p><code class="highlighter-rouge"># docker build .</code>
+You can also introduce the [name-of-the-image]:[tag] notation with the “–tag” parameter:</p>
 
-# docker build –tag my-nc-server:test-tag .
+<p><code class="highlighter-rouge"># docker build –tag my-nc-server:test-tag .</code></p>
 
-*More info: https://docs.docker.com/engine/userguide/eng-image/docker
+<p><em>*More info: https://docs.docker.com/engine/userguide/eng-image/docker</em></p>
 
-How to copy a Docker image to some other Docker host
-You can also copy images as packages with the Save/Export &amp; Load commands.
+<h1 id="how-to-copy-a-docker-image-to-some-other-docker-host">How to copy a Docker image to some other Docker host</h1>
 
-What is the difference between Save and Export? Answer: Save persists an image whereas Export persists containers.
+<p>You can also copy images as packages with the Save/Export &amp; Load commands.</p>
 
-Here is how you do it:
+<p>What is the difference between Save and Export? Answer: Save persists an image whereas Export persists containers.</p>
 
-# docker save my-busybox &gt;my-busybox.tar
+<p>Here is how you do it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker save my-busybox &gt;my-busybox.tar
 # scp my-busybox.tar user@somemachine:/home/user/
 
 Uploading….
@@ -249,51 +361,56 @@ my-busybox.tar 100% 1299KB 1.3MB/s 00:00
 
 # docker images | grep busy
 my-busybox latest 5d8cbe820583 About an hour ago 1.113 MB
+</code></pre></div></div>
 
-Docker networking
-Docker offers 3 types of network configuration: bridge, host and none.
-You can define “none” if you want to waste a lot of time configuring everything yourself.
+<h1 id="docker-networking">Docker networking</h1>
 
-The “host” option sucks really bad — it replicates all the network interfaces of the Docker host into your container so there is no magic of isolated virtualization.
+<p>Docker offers 3 types of network configuration: bridge, host and none.
+You can define “none” if you want to waste a lot of time configuring everything yourself.</p>
 
-The default option “bridge” is applied when none of the others are specified. This option creates a “docker0” interface in your Linux and, for each container that you start, a Virtual Ethernet interface is created along with it (it is usually named as “veth<crazy_sequence_of_characters>”). Any requests that target a specific port that is mapped between the Docker Host and the Container will be handled by the docker0 network, forwarded to its respecting “veth” and then it will fall in the “eth0” of the container.
+<p>The “host” option sucks really bad — it replicates all the network interfaces of the Docker host into your container so there is no magic of isolated virtualization.</p>
 
-e.g., sandbox01 → dockerhost : ens34 :: docker0 :: vethXXX → container : eth0
+<p>The default option “bridge” is applied when none of the others are specified. This option creates a “docker0” interface in your Linux and, for each container that you start, a Virtual Ethernet interface is created along with it (it is usually named as “veth<crazy_sequence_of_characters>”). Any requests that target a specific port that is mapped between the Docker Host and the Container will be handled by the docker0 network, forwarded to its respecting “veth” and then it will fall in the “eth0” of the container.</crazy_sequence_of_characters></p>
 
-An example of the how the network interfaces connect with each other:
+<p>e.g., sandbox01 → dockerhost : ens34 :: docker0 :: vethXXX → container : eth0</p>
 
-docker_networking
+<p>An example of the how the network interfaces connect with each other:</p>
 
-Be aware that scripts under “/etc/sysconfig/network-scripts” that contain the name of that interface can potentially block this flow, depending on its instructions.
+<p><img src="https://themarcelor.github.com/blog/assets/img/docker_networking.png" alt="docker_networking" /></p>
 
-Yeah, a very specific caveat here… you guessed it right, I had faced an issue with that and got stuck for a few days on it 😦
-How to monitor containers
-Ideally, if you have a container orchestration system like Kubernetes, then you can consider sophisticated tools like Prometheus. If you just want to monitor containers from within the Docker host, here are some useful commands:
+<p>Be aware that scripts under “/etc/sysconfig/network-scripts” that contain the name of that interface can potentially block this flow, depending on its instructions.</p>
 
-docker top
-# docker top nc-server
+<p>Yeah, a very specific caveat here… you guessed it right, I had faced an issue with that and got stuck for a few days on it 😦</p>
+
+<h1 id="how-to-monitor-containers">How to monitor containers</h1>
+
+<p>Ideally, if you have a container orchestration system like Kubernetes, then you can consider sophisticated tools like Prometheus. If you just want to monitor containers from within the Docker host, here are some useful commands:</p>
+
+<h2 id="docker-top">docker top</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker top nc-server
 
 UID PID PPID C STIME TTY TIME CMD
 
 root 28524 28510 0 11:36 pts/1 00:00:00 nc -vv -l 8080
+</code></pre></div></div>
 
-docker stats
+<h2 id="docker-stats">docker stats</h2>
 
-# docker stats nc-server
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker stats nc-server
 CONTAINER CPU % MEM USAGE / LIMIT MEM % NET I/O BLOCK I/O PIDS
 
 nc-server 0.00% 9.769MB/12.42GB 0.08% 48B/648B 9.409MB/0B 0
+</code></pre></div></div>
 
-Keep in mind:
+<p>Keep in mind:</p>
 
-docker exec -it <container-name> /bin/bash
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it &lt;container-name&gt; /bin/bash
 ctrl+p &amp; ctrl+q (return to docker host)
-docker logs -ft <container-name>
+docker logs -ft &lt;container-name&gt;
+</code></pre></div></div>
 
-—
-
-That’s it. Just some general Docker instructions that should bring you up to speed if you never play with it before, please provide suggestions to expand this article in the comments.
-</container-name></container-name></crazy_sequence_of_characters></image>
+<p>That’s it. Just some general Docker instructions that should bring you up to speed if you never play with it before, please provide suggestions to expand this article in the comments.</p>
 
       
 

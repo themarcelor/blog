@@ -56,8 +56,7 @@ Quick review of the docker run syntax:
 
 | -h (hostname)    | Hostname within the Docker network |
 
-| –link	           | Allow communication with another 
-container in the Docker network |
+| –link	           | Allow communication between containers |
 
 | -p (port)        | Exposed port ( <host_port>:<container_port>) |
 
@@ -73,7 +72,9 @@ container in the Docker network |
 
 Here is a slightly more complex example (running a local project just to illustrate):
 
-`# docker run -d –name mykanban -h mykanbanapp –link mydbcontainer -p 8080:8080 -w /opt/mykanban -v /home/marcelo/Projects/MyOnlineKanban/mykanban:/opt/mykanban java:8 /usr/bin/jjs – cp lib/mongo-2.10.1.jar httpsrv.js`
+```
+# docker run -d –name mykanban -h mykanbanapp –link mydbcontainer -p 8080:8080 -w /opt/mykanban -v /home/marcelo/Projects/MyOnlineKanban/mykanban:/opt/mykanban java:8 /usr/bin/jjs – cp lib/mongo-2.10.1.jar httpsrv.js
+```
 
 # More about Docker images
 So, let’s say I want to create my image with a “netcat” pre-installed. I would need to run:
@@ -128,7 +129,7 @@ nc-server     centos     ff5450d8c273   6 seconds ago    278.8 MB
 
 We can create new images out of base images for different purposes, we can even extend them for specific use cases.
 
-![image_hierarchy](https://themarcelor.github.com/blog/assets/img/image_hierarchy.jpg)
+![image_hierarchy](https://themarcelor.github.com/blog/assets/img/image_hierarchy.png)
 
 # How to use your own internal Docker registry to store images
 
@@ -140,12 +141,13 @@ provide the password once more and click on the gear icon to generate an API key
 
 And, finally, login:
 
+```
 # docker login artifactory.yourcompanydomain.com:6556
 
 Username: your.name@yourcompanydomain.com
 Password:
 Login Succeeded
-
+```
  
 
 # How to push your image to artifactory
@@ -180,11 +182,12 @@ Therefore, do not commit containers !!! THAT WAS JUST FOR SHOW! — USE DOCKERFI
 
 Following good automation practices: if you need to apply a number of custom steps to assemble your container, it is a bad idea to spin it and commit it. To solve that problem we use the “Dockerfile”.
 
-![dockerfile_versioning](https://themarcelor.github.com/blog/assets/img/dockerfile_versioning.jpg)
+![dockerfile_versioning](https://themarcelor.github.com/blog/assets/img/dockerfile_versioning.png)
 
-1. Create a “Dockerfile” under your project folder: /home/user/Projects/my-nc-server
+- Create a “Dockerfile” under your project folder: /home/user/Projects/my-nc-server
 
-2. Introduce the instructions you need, e.g.:
+- Introduce the instructions you need, e.g.:
+
 ```
 FROM centos
 MAINTAINER Marcelo Costa <marceloc@whatever.com>
@@ -193,7 +196,7 @@ RUN yum -y install nc
 RUN yum -y install net-tools
 ```
 
-3. Create a new custom image with the following command (running within the “my-nc- server” directory):
+- Create a new custom image with the following command (running within the “my-nc- server” directory):
 
 `# docker build .`
 You can also introduce the [name-of-the-image]:[tag] notation with the “–tag” parameter:

@@ -48,6 +48,9 @@
   <li>
     <a href="/about.html">About</a>
   </li>
+  <li>
+    <a href="/emacs.html">Emacs</a>
+  </li>
 </ul>
 </nav>
 
@@ -63,7 +66,9 @@
 
 <p>—</p>
 
-<p>Why do we monitor the JVM? Two reasons: Performance &amp; Benchmarking.</p>
+<h1 id="why-do-we-monitor-the-jvm">Why do we monitor the JVM?</h1>
+
+<p>Two reasons: Performance &amp; Benchmarking.</p>
 
 <p>Performance: What if your application is slow? Hanging? Is it crashing all of a sudden? Is there some specific event that freezes the entire system for a moment? Yeah.. you must find the root cause of this bottleneck, but how? Don’t worry, I will present a few tools/commands and share a bunch of vague conjectures to leave you even more confused some cool info to get you started on this amazing world of the JVM Monitoring, are you psyched?</p>
 
@@ -78,7 +83,7 @@
 
 <p>Cool, now… let’s see some code, shall we?</p>
 
-<p>Thread Dump analysis</p>
+<h1 id="thread-dump-analysis">Thread Dump analysis</h1>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.BufferedInputStream</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
@@ -121,17 +126,9 @@
 
 <p>This code is going to create 10 threads and read the contents of “somFile.txt”, you can easily create a dummy file somewhere in your machine and adapt the code to read its lines, now.. let it create a few threads and then let’s take some Thread Dumps.</p>
 
-<p>|          |                                                             |
-| ——– |                                                             |</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/challenge.jpg" alt="challenge" /></p>
 
-<table>
-  <tbody>
-    <tr>
-      <td><img src="https://themarcelor.github.com/blog/assets/img/challenge.jpg" alt="challenge" /></td>
-      <td>Questions: Why are we doing this? What is a Thread Dump?</td>
-    </tr>
-  </tbody>
-</table>
+<p>Questions: Why are we doing this? What is a Thread Dump?</p>
 
 <p>Answer: We are doing this to illustrate how a multi-threading program can, sometimes, face a situation where a given resource will be ‘locked’ by another activity or it won’t be available due to external factors, e.g., a number of connections were borrowed from a JDBC Connection Pool and the database can’t accept any more connections, there will be several threads/transactions waiting on the queue to be processed (just like our threads that will be waiting to read ‘someFile.txt’), that might slow down some activities in your system.</p>
 
@@ -177,7 +174,7 @@ at MyFileReader.run<span class="o">(</span>TestRaceCondition.java:28<span class=
 
 <p>It’s perfectly possible to analyze the file without any tools, or even write some code to ‘squeeze’ the long running threads throughout a given set of Thread Dumps files, however, some tools can speed up the process by organizing the data to make it easier for our eyes, for that, I recommend a too called ThreadLogic. Here’s a screenshot of its interface loaded with a Thread Dump from our ‘TestRaceCondition’ program:</p>
 
-<p>Threadlogic</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/Threadlogic.jpg" alt="Threadlogic" /></p>
 
 <p>So, as you can see, it categorizes the threads to facilitate the analysis, e.g., a useful command there can be found under “tools &gt; Find long running threads…”, I won’t dive too much on its features as it’s pretty intuitive.</p>
 
@@ -185,11 +182,11 @@ at MyFileReader.run<span class="o">(</span>TestRaceCondition.java:28<span class=
 
 <p>Imagine the JVM monitor as a supervisor of a construction site, 3 guys need to dig a ditch but they only have one shovel, so they need to take turns (synchronized), the first one grabs (locks/acquire the monitor) the shovel (resource) and the supervisor makes sure that they don’t make a mess and try to do the same thing at the same time (corrupt resource), when the worker gets tired he drops the shovel (release) and call the next guy (notify) that was waiting (wait, duh), some of them can take a nap (sleep) and some of them might wish to keep digging until they finish their part of the job and then allow someone else to take over (join). I hope you got the gist, here’s an image to illustrate this pathetic analogy (yeah.. that thing on the right-side it’s a monitor).</p>
 
-<p>Monitor</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/monitor.jpg" alt="monitor" /></p>
 
 <p>Now, based on these concepts that you learned here, check the Tread Dumps again and share your impressions in the comments section, even better, share your personal experiences with Thread Dump analysis, I bet everyone would find this interesting.</p>
 
-<p>Heap Dump analysis</p>
+<h1 id="heap-dump-analysis">Heap Dump analysis</h1>
 
 <p>Heap Dumps are ‘snapshots’ of heap usage, i.e., tables of data indicating how many classes/objects are loaded, how much memory the classes/objects are using and what references they have between each other, these Heap Dump files store information in a very specific format and can only be visualized with Heap Dump Analysis tools, e.g., “Eclipse Memory Analyzer” or “IBM HeapAnalyzer”.</p>
 
@@ -202,7 +199,7 @@ Garbage Collection logs
 Young Generation
 Out Of Memory Errors and Heap Dumps</p>
 
-<p>Profilers</p>
+<h1 id="profilers">Profilers</h1>
 
 <p>Here is where we do the real monitoring, the recording and analysis of the JVM’s internal data is done through a set of tools called ‘profilers’, Profiling is a mechanism whereby one of these tools connect to the JVM through the Java Virtual Machine Tool Interface (JVMTI) to retrieve information about cool JVM stuff, like Threads  and Memory (heap) usage. It also allows a system administrator to send commands to Managed Beans through Java Management Extensions (JMX) methods. Ok, let’s get down to business, run your java program with the following JVM arguments:</p>
 
@@ -216,8 +213,7 @@ Eclipse TPTP</p>
 
 <p>JRockit is my favorite (which should be replaced by Java Mission Control soon), the interface is very practical and it’s full of features (Czech out the video!), Visual VM is simpler but has a cool GC log viewer plugin, I’m not a big fan of jConsole but it’s shipped with older versions of the JDK so it might come in handy, Eclipse TPTP gives that feeling of working within the same space, which is good but you will need to download too many things to start using it (it’s pretty cool though), in summary: they’re all awesome! It depends on your mood.</p>
 
-<p>—
-Ok, that’s it for today, in the next part of the “Nashorn and the JVM monitoring challenge” series, we will learn more about ‘invokedynamic’ and the bizarre results that we get when we try to monitor/troubleshoot Nashorn-based applications.</p>
+<p>Ok, that’s it for today, in the next part of the “Nashorn and the JVM monitoring challenge” series, we will learn more about ‘invokedynamic’ and the bizarre results that we get when we try to monitor/troubleshoot Nashorn-based applications.</p>
 
 <p>Cheers!</p>
 

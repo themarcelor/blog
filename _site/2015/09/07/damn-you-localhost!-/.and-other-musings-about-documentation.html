@@ -48,6 +48,9 @@
   <li>
     <a href="/about.html">About</a>
   </li>
+  <li>
+    <a href="/emacs.html">Emacs</a>
+  </li>
 </ul>
 </nav>
 
@@ -77,29 +80,31 @@ But of course, there are other ways to document things, some interesting practic
 http://localhost:8983/solr/admin/collections?action=DELETE&amp;name=theCollection
 The problem is that the Ops guy accidentally logged into a Production server instead of the Staging server he was looking for and, suddenly, all the indexing data from thousands of customers were gone, in the blink of an eye. I’m not exposing the exact command that was executed but, just so you known, we have proper SSL configuration to avoid any misguided interaction with our SolrCloud API, however, the usage of the client certificate is obviously granted to the Operations team.</p>
 
-<p>localhost</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/localhost.jpg" alt="localhost" /></p>
 
 <p>So, here is the question: Can/Should we blame the documentation? Some might think we should integrate some additional mechanism within the existing security API to avoid such mistakes, or, even easier, we could wrap the command around a bash script that would present some scary ASCII art with skull and bones to let the user know that he is about to run that command against a particular ip address / hostname and this is a sensitive operation, anyway, regardless of the approach, this kind of goes against the “fix the process, not the problem” principle. After we restored the collection from backup, the documentation was adjusted with a placeholder:</p>
 
-<p>http://<insert_hostname_here>:8983/solr/admin/collections?action=DELETE&amp;name=theCollection
-Through this exercise of sharing my personal musings involving documentation, I guess I will take a step at some compilation of best practices to create good documentation. Hopefully, the following guidelines can be adapted to different types of documentation, even if it is about architecture, features, troubleshooting steps, etc.</insert_hostname_here></p>
+<p>http://<insert_hostname_here>:8983/solr/admin/collections?action=DELETE&amp;name=theCollection</insert_hostname_here></p>
 
-<p>#1 – You must have empathy
-Try to put yourself in someone else’s shoes. Yeah, this one can be extremely relative and vague but, just like everything else in life, I believe it is interesting to try to leave the proper breadcrumbs and send the elevator back to help other people to reach that level of understanding you have. just imagine how amazing it would be if you could avoid all those IM windows that are constantly blinking while you try to concentrate and write some code, just reply with “RTFM” (Read The F**ing Full Manual) and send the link. Keep the following resources in mind:</p>
+<p>Through this exercise of sharing my personal musings involving documentation, I guess I will take a step at some compilation of best practices to create good documentation. Hopefully, the following guidelines can be adapted to different types of documentation, even if it is about architecture, features, troubleshooting steps, etc.</p>
 
-<p>Write an overview
-Provide links to other resources
-Expand acronyms
-Collect feedback once you post it and amend if necessary
-#2 – Help the visual learners with some diagrams
-Describe the basic architecture and, perhaps even dive into the components involved in the request flow. For automated operations, another idea is to describe a timeline of events and present the entities involved in the orchestration. Use point #1 as a guidance on which visual elements would be more appropriate for the scenario you are working on.</p>
+<h1 id="1--you-must-have-empathy">1 – You must have empathy</h1>
+<p>Try to put yourself in someone else’s shoes. Yeah, this one can be extremely relative and vague but, just like everything else in life, I believe it is interesting to try to leave the proper breadcrumbs and send the elevator back to help other people to reach that level of understanding you have. just imagine how amazing it would be if you could avoid all those IM windows that are constantly blinking while you try to concentrate and write some code, just reply with “RTFM” (Read The F**ing Full Manual) and send the link. Keep the following resources in mind:</p>
 
-<p>pipeline</p>
+<ul>
+  <li>Write an overview</li>
+  <li>Provide links to other resources</li>
+  <li>Expand acronyms</li>
+  <li>Collect feedback once you post it and amend if necessary</li>
+</ul>
 
-<p>#3 – Name it, tag it and categorize everything
-The documentation you create is useless unless it can be found. So make sure you put some meaningful name and add some tags to make it easy for your internal collaboration system to index it properly. Group the pages into sections that make sense and advertise your documentation in your next technical update or knowledge sharing session.</p>
+<h1 id="2--help-the-visual-learners-with-some-diagrams">2 – Help the visual learners with some diagrams</h1>
+<p>Describe the basic architecture and, perhaps even dive into the components involved in the request flow. For automated operations, another idea is to describe a timeline of events and present the entities involved in the orchestration. Use point #1 as a guidance on which visual elements would be more appropriate for the scenario you are working on.</p>
 
-<p>—</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/pipeline.jpg" alt="pipeline" /></p>
+
+<h1 id="3--name-it-tag-it-and-categorize-everything">3 – Name it, tag it and categorize everything</h1>
+<p>The documentation you create is useless unless it can be found. So make sure you put some meaningful name and add some tags to make it easy for your internal collaboration system to index it properly. Group the pages into sections that make sense and advertise your documentation in your next technical update or knowledge sharing session.</p>
 
 <p>Of course, there is no silver bullet. The documentation will become outdated, even the code can turn into a misleading amalgamation of legacy and working methods (some people don’t realize they have a version-control system so they decide to leave old stuff in the code “just in case”). However, with the proper set of references, links and comments (or other forms of general collaboration), there are alternatives to find the up-to-date information, either by going to the ticket and checking the latest updates on it or by checking the commit history of the components associated with the use case under investigation.</p>
 
