@@ -2,7 +2,7 @@
 layout: post
 author: Marcelo Costa
 ---
-# A brief comment about the Permanent Generation space (aka, “non-heap”)
+A brief comment about the Permanent Generation space (aka, “non-heap”)
 
 This area stores the definition of classes (java.lang.Class) and the Pool of Strings (there’s a cool text about that at the end of this post), which means that, if your application load too many classes into your JVM, you can see the following error: ‘java.lang.OutOfMemoryError: PermGen space’, you can solve that in many ways, one of them is to configure the the argument “-XX:PermSize” to a larger size. In the JVM 1.6 the default size is 8mb to the JVM in client-mode and 16mb to server-mode, and the max size (-XX:MaxPermSize) to both of them is 64mb.
 

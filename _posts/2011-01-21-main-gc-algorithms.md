@@ -23,7 +23,7 @@ Here’s a pseudo-code that will illustrate the algorithm:
 
 If the GC would not able to work this way, things would be really slow compared to what we have today. Let’s put it like this: “if you have a box of oranges, where there are 2 good ones and 98 of them are rotten”, what would be the best option? Identify and remove the good ones or the bad ones?
 
-![oranges_BOX](https://themarcelor.github.com/blog/assets/img/oranges_BOX.jpg)
+![oranges_box](https://themarcelor.github.com/blog/assets/img/oranges_box.jpg)
 
 I think it would be better to just keep the good ones and get rid of the rest, based on that idea (and the fact that 90% of the objects created during the execution of any application are generally collected) there is another algorithm that we should get familiarized with.
 

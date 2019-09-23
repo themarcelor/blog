@@ -8,7 +8,9 @@ Before we start Nashorning, I would like to contextualize what I’m trying to d
  
 —
  
-# Why do we monitor the JVM? Two reasons: Performance & Benchmarking.
+# Why do we monitor the JVM?
+
+Two reasons: Performance & Benchmarking.
 
  
 Performance: What if your application is slow? Hanging? Is it crashing all of a sudden? Is there some specific event that freezes the entire system for a moment? Yeah.. you must find the root cause of this bottleneck, but how? Don’t worry, I will present a few tools/commands and share a bunch of vague conjectures to leave you even more confused some cool info to get you started on this amazing world of the JVM Monitoring, are you psyched?

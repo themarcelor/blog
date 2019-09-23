@@ -3,6 +3,7 @@ layout: post
 author: Marcelo Costa
 ---
 OMG! an Out Of Memory error!
+
 ![terror](https://themarcelor.github.com/blog/assets/img/terror.jpg)
 
 Exception in thread "ThisIsM-YThread-0" java.lang.OutOfMemoryError: Java heap space.

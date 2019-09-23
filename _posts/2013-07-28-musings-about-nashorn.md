@@ -2,7 +2,7 @@
 layout: post
 author: Marcelo Costa
 ---
-# The Nashorn Javascript engine
+The Nashorn Javascript engine
 
 The Nashorn Javascript engine that will be integrated in the JDK 8 may be, in a near future, the technology that will serve as a foundation for a wide range of enterprise solutions, the increasing adoption of the Javascript language for unorthodox practices, such as, server-side programming, is now a strong topic of discussion among developers, I had the opportunity to attend to Brazil JS in Fortaleza (CE, Brazil) back in 2011 and the whole thing seemed like a Fashion Show to me. Until that event, I didn’t have the chance to experience any of that during my life as an IT professional so I felt like I was just looking at a bunch of crazy trends:
 

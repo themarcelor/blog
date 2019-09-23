@@ -2,7 +2,7 @@
 layout: post
 author: Marcelo Costa
 ---
-# Inheritance, Polymorphism and Encapsulation
+Inheritance, Polymorphism and Encapsulation
 
 Hello fellow readers, it’s been a while since last time I blogged so here’s a quick post to review some basic OOP concepts, three of them to be more precise: Inheritance, Polymorphism and Encapsulation.
 
