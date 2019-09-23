@@ -43,32 +43,32 @@ If you are in a Mac OS environment, find the little Docker icon on the top-right
 ![docker_running](https://themarcelor.github.com/blog/assets/img/docker_running.png)
 
 Then you can start a container and play in a completely isolated / virtualized environment:
-# docker run -it –name mycontainer centos /bin/sh
+
+`# docker run -it –name mycontainer centos /bin/sh`
 
 Quick review of the docker run syntax:
 
-| Parameter | Description                                 |
+| Parameter        | Description                                 |
+| :--- | :--- |
+| -d (detached)    | Runs in detached mode (not interactive) |
 
-| --------- | ------------------------------------------- |
-| -d (detached) | Runs in detached mode (not interactive) |
+| –name	           | Name of the container |
 
-| –name	| Name of the container |
+| -h (hostname)    | Hostname within the Docker network |
 
-| -h (hostname) | Hostname within the Docker network |
+| –link	           | Allow communication with another container in the Docker network |
 
-| –link	| Allow communication with another container in the Docker network |
+| -p (port)        | Exposed port ( <host_port>:<container_port>) |
 
-| -p (port) | Exposed port ( <host_port>:<container_port>) |
+| -v (volume)      | Mapped volume/disk path (<host_path>:<container_path>) |
 
-| -v (volume) |	Mapped volume/disk path (<host_path>:<container_path>) |
+| < image >        | Name of the docker image |
 
-| <image> | Name of the docker image |
+| -w (work dir.)   | Initial directory for the container command |
 
-| -w (working directory) | Initial directory for the container command |
+| -t (tty/term.)   | Assign pseudo-tty for the container |
 
-| -t (tty / terminal) | Assign pseudo-tty for the container |
-
-| -i (input) | Set STDIN of the container (interactive) |
+| -i (input)       | Set STDIN of the container (interactive) |
 
 Here is a slightly more complex example (running a local project just to illustrate):
 

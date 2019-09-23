@@ -106,9 +106,8 @@ Executing Java code is not the JVM’s solely purpose, every Java code is compil
 
 The JVM has approximately 200 “opcodes” to perform invocation of instructions, handle access to fields and control objects and arrays. The following table presents the types of invocation bytecode operations that were available before JDK version 7:
 
-| Opcode | Usage                                                   |
-
-| ------ | ------------------------------------------------------- |
+| Opcode | Usage |
+| :--- | :--- |
 | Invokestatic | For static methods |
 
 | Invokevirtual | For non-private instance methods |

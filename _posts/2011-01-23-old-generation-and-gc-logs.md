@@ -20,9 +20,8 @@ Let’s try to understand what each value means:
 - 0.4126550 secs = Time of GC operation
 [Times: user=0.78 sys=0.02, real=0.42 secs] = refer to the table below: 
 
-| Time stat | description                                  |
-
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Time stat | description |
+| :--- | :--- |
 | Real	| is wall clock time – time from start to finish of the call. This is all elapsed time including time slices used by other processes and time the process spends blocked (for example if it is waiting for I/O to complete).                               |
 
 | User	| is the amount of CPU time spent in user-mode code (outside the kernel) within the process. This is only actual CPU time used in executing the process. Other processes and time the process spends blocked do not count towards this figure.              |
