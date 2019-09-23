@@ -121,7 +121,17 @@
 
 <p>This code is going to create 10 threads and read the contents of “somFile.txt”, you can easily create a dummy file somewhere in your machine and adapt the code to read its lines, now.. let it create a few threads and then let’s take some Thread Dumps.</p>
 
-<p>challenge	Questions: Why are we doing this? What is a Thread Dump?</p>
+<p>|          |                                                             |
+| ——– |                                                             |</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="https://themarcelor.github.com/blog/assets/img/challenge.jpg" alt="challenge" /></td>
+      <td>Questions: Why are we doing this? What is a Thread Dump?</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>Answer: We are doing this to illustrate how a multi-threading program can, sometimes, face a situation where a given resource will be ‘locked’ by another activity or it won’t be available due to external factors, e.g., a number of connections were borrowed from a JDBC Connection Pool and the database can’t accept any more connections, there will be several threads/transactions waiting on the queue to be processed (just like our threads that will be waiting to read ‘someFile.txt’), that might slow down some activities in your system.</p>
 

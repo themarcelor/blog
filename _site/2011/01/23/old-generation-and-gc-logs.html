@@ -65,15 +65,17 @@
 
 <p>You see? It is just as simple as this:</p>
 
-<p>hieroglifo</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/hieroglifo.jpg" alt="hieroglifo" /></p>
 
 <p>Let’s try to understand what each value means:</p>
 
-<p>17767.137 = Elapsed time in seconds since the JVM was started.
-[PSYoungGen: 1052672K-&gt;175413K(1228096K)] = Space taken up on the Young Generation BEFORE the GC -&gt; Space that was taken up on the Young Generation AFTER the GC
-3100706K-&gt;2233257K(4035264K) = Space taken up on the entire heap BEFORE the GC – &gt; Space taken up on the entire heap AFTER the GC (You should not consider the Permanent Generation)
-0.4126550 secs = Time of GC operation
-[Times: user=0.78 sys=0.02, real=0.42 secs] = refer to the table below:</p>
+<ul>
+  <li>17767.137 = Elapsed time in seconds since the JVM was started.</li>
+  <li>[PSYoungGen: 1052672K-&gt;175413K(1228096K)] = Space taken up on the Young Generation BEFORE the GC -&gt; Space that was taken up on the Young Generation AFTER the GC</li>
+  <li>3100706K-&gt;2233257K(4035264K) = Space taken up on the entire heap BEFORE the GC – &gt; Space taken up on the entire heap AFTER the GC (You should not consider the Permanent Generation)</li>
+  <li>0.4126550 secs = Time of GC operation
+[Times: user=0.78 sys=0.02, real=0.42 secs] = refer to the table below:</li>
+</ul>
 
 <table>
   <tbody>
@@ -115,17 +117,18 @@
 
 <p>Isn’t that amazing? Now you can see a log entry like this one and interpret what is going on (to generate these log entries use the following argument: -verbose:gc, or, if you want to see this on a specific file, -Xloggc:file), you can start creating graphics showing what is happening with your JVM in a given moment, like this one:</p>
 
-<p>minor_gc</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/minor_gc.jpg" alt="minor_gc" /></p>
 
 <p>This way we can confirm that 10 mb of objects were promoted to the Old generation, do you agree?</p>
 
 <p>Here is an example of how the Full GC is represented in the logs:</p>
 
-<p>17684.691: [Full GC [PSYoungGen: 175417K-&gt;0K(1228096K)] [ParOldGen: 2715481K-&gt;2019446K(2807168K)] 2890899K-&gt;2019446K(4035264K) [PSPermGen: 118571K-&gt;118548K(163840K)], 6.1196070 secs] [Times: user=11.34 sys=0.02, real=6.12 secs]</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>17684.691: [Full GC [PSYoungGen: 175417K-&gt;0K(1228096K)] [ParOldGen: 2715481K-&gt;2019446K(2807168K)] 2890899K-&gt;2019446K(4035264K) [PSPermGen: 118571K-&gt;118548K(163840K)], 6.1196070 secs] [Times: user=11.34 sys=0.02, real=6.12 secs]
+</code></pre></div></div>
 
 <p>You can use tools to visualize this kind of activities, for example, the GC Viewer:</p>
 
-<p>gc_viewer</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/gc_viewer.jpg" alt="gc_viewer" /></p>
 
 <p>Again, why this is so interesting? Because, with this knowledge, you can solve performance problems and even tune your JVM, the most common issues (that involve memory) are caused by:</p>
 

@@ -11,15 +11,15 @@
 <meta property="og:title" content="Out Of Memory Errors And Heap Dumps" />
 <meta name="author" content="Marcelo Costa" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="OMG! an Out Of Memory error! terror" />
-<meta property="og:description" content="OMG! an Out Of Memory error! terror" />
+<meta name="description" content="OMG! an Out Of Memory error!" />
+<meta property="og:description" content="OMG! an Out Of Memory error!" />
 <link rel="canonical" href="http://localhost:4000/2011/01/25/out-of-memory-errors-and-heap-dumps.html" />
 <meta property="og:url" content="http://localhost:4000/2011/01/25/out-of-memory-errors-and-heap-dumps.html" />
 <meta property="og:site_name" content="TheMarceloR" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2011-01-25T00:00:00+00:00" />
 <script type="application/ld+json">
-{"description":"OMG! an Out Of Memory error! terror","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2011/01/25/out-of-memory-errors-and-heap-dumps.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Out Of Memory Errors And Heap Dumps","dateModified":"2011-01-25T00:00:00+00:00","datePublished":"2011-01-25T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/25/out-of-memory-errors-and-heap-dumps.html"},"@context":"https://schema.org"}</script>
+{"description":"OMG! an Out Of Memory error!","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2011/01/25/out-of-memory-errors-and-heap-dumps.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Out Of Memory Errors And Heap Dumps","dateModified":"2011-01-25T00:00:00+00:00","datePublished":"2011-01-25T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/25/out-of-memory-errors-and-heap-dumps.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=">
@@ -57,7 +57,8 @@
       <h1>Out Of Memory Errors And Heap Dumps</h1>
 <p>25 Jan 2011 - Marcelo Costa</p>
 
-<p>OMG! an Out Of Memory error! terror</p>
+<p>OMG! an Out Of Memory error!
+<img src="https://themarcelor.github.com/blog/assets/img/terror.jpg" alt="terror" /></p>
 
 <p>Exception in thread “ThisIsM-YThread-0” java.lang.OutOfMemoryError: Java heap space.
 This error just showed up in your application logs? Run to the hills!</p>
@@ -68,7 +69,7 @@ This error just showed up in your application logs? Run to the hills!</p>
 
 <p>Ideally we need to investigate what really happened. Adding more RAM to a server or reconfigure the -Xmx (JVM argument that defines the maximum space of the Heap) it’s not the silver bullet here. See, per instance this basin full of water:</p>
 
-<p>bacia-com-agua1</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/bacia-com-agua1.jpg" alt="bacia-com-agua1" /></p>
 
 <p>Imagine that, at the bottom of this basin, there’s a hole to drain the water, it keeps filling until a certain level e gets drained in an ideal pace, everything ok so far? Ok, imagine the same scenario where the water stream is so big that it’s filling the space faster than the hole can drain, eventually this basin is going to overflow. Therefore, considering this scenario we have to ask ourselves: Does increasing the size of the basin solve our problem?</p>
 
@@ -76,11 +77,17 @@ This error just showed up in your application logs? Run to the hills!</p>
 
 <p>So, you can generate a Heap Dump to analyze these objects, here are a few methods to generate Heap Dumps:</p>
 
-<p>1) -XX:+HeapDumpOnOutOfMemoryError</p>
-
-<p>2) -XX:+HeapDumpOnCtrlBreak                                                              (Windows)</p>
-
-<p>3) jmap -dump:format=b,file=HeapDump.hprof <pid>                (JVM’s PID)</pid></p>
+<ol>
+  <li>
+    <p>-XX:+HeapDumpOnOutOfMemoryError</p>
+  </li>
+  <li>
+    <p>-XX:+HeapDumpOnCtrlBreak                                                              (Windows)</p>
+  </li>
+  <li>
+    <p>jmap -dump:format=b,file=HeapDump.hprof <pid>                (JVM’s PID)</pid></p>
+  </li>
+</ol>
 
 <p>*The HeapDump will be generated in the ‘working directory’
 (e.g., In Tomcat, the HeapDump is generated in the /bin folder)
@@ -102,25 +109,25 @@ If the Heap Dump is a large file, you might need to allocate more memory to the 
 <p>java -Xmx1800m -jar ha398.jar
 If you have a decent machine, eventually you will gonna get through this screen here:</p>
 
-<p>heap_analysis_1</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/heap_analysis_1.jpg" alt="heap_analysis_1" /></p>
 
 <p>2) After that, we will see a summary with Heap details:</p>
 
-<p>heap_analysis_2</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/heap_analysis_2.jpg" alt="heap_analysis_2" /></p>
 
 <p>3) The analysis will take different paths depending on the scenario, if you are looking for a specific objects, few instances that are taking up too much space or large number of objects that are gradually occupying most of the Heap (i.e., Leak Suspect), the tool provides different ways of visualizing the objects (Object Types, instances and associations):</p>
 
-<p>heap_analysis_3</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/heap_analysis_3.jpg" alt="heap_analysis_3" /></p>
 
 <p>The ‘Eclipse Memory Analyzer’ works in a similar way, but beyond the cool graphs, it can focus the analysis by automatically identifying the leak suspects providing a report that starts from the Threads that were allocating these objects when the Heap Dump was taken:</p>
 
-<p>heap_analysis_4</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/heap_analysis_4.jpg" alt="heap_analysis_4" /></p>
 
 <p>Remember that the leak suspect routines might lead to wrong conclusions, don’t trust in any automatic analysis, understand how your application works e verify what is being expected and what is not, don’t assume that you can open any Heap Dump and point out the culprit, understanding the low-level functionalities is surely helpful.</p>
 
 <p>Another advantage of Eclipse Memory Analyzer it’s the interface, check out this ‘tree view’:</p>
 
-<p>heap_analysis_5</p>
+<p><img src="https://themarcelor.github.com/blog/assets/img/heap_analysis_5.jpg" alt="heap_analysis_5" /></p>
 
       
 

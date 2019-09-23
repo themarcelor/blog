@@ -14,7 +14,7 @@ I had the opportunity to give a talk about this new technology in an event from 
 
 ![cctdeferias](https://themarcelor.github.com/blog/assets/img/cctdeferias.jpg)
 
-Since Javascript is becoming more and more strong in the software development world, either for its simple syntax or dynamic features, the adoption of Nashorn-based enterprise solutions can become a reality soon, based on this fact, more study is necessary on how this change of paradigm will affect the way Enterprise Performance Monitoring is performed.
+Since Javascript is becoming stronger in the software development world, either for its simple syntax or dynamic features, the adoption of Nashorn-based enterprise solutions can become a reality soon, based on this fact, more study is necessary on how this change of paradigm will affect the way Enterprise Performance Monitoring is performed.
 
 ![dsc07239](https://themarcelor.github.com/blog/assets/img/dsc07239.jpg)
 ![dsc07234](https://themarcelor.github.com/blog/assets/img/dsc07234.jpg)

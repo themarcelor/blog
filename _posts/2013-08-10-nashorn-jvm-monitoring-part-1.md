@@ -65,8 +65,9 @@ class MyFileReader extends Thread {
 ```
  
 This code is going to create 10 threads and read the contents of “somFile.txt”, you can easily create a dummy file somewhere in your machine and adapt the code to read its lines, now.. let it create a few threads and then let’s take some Thread Dumps.
- 
-challenge	Questions: Why are we doing this? What is a Thread Dump?
+
+![challenge](https://themarcelor.github.com/blog/assets/img/challenge.jpg)
+Questions: Why are we doing this? What is a Thread Dump?
  
 Answer: We are doing this to illustrate how a multi-threading program can, sometimes, face a situation where a given resource will be ‘locked’ by another activity or it won’t be available due to external factors, e.g., a number of connections were borrowed from a JDBC Connection Pool and the database can’t accept any more connections, there will be several threads/transactions waiting on the queue to be processed (just like our threads that will be waiting to read ‘someFile.txt’), that might slow down some activities in your system.
 
@@ -116,15 +117,15 @@ at MyFileReader.run(TestRaceCondition.java:28)
  
 It’s perfectly possible to analyze the file without any tools, or even write some code to ‘squeeze’ the long running threads throughout a given set of Thread Dumps files, however, some tools can speed up the process by organizing the data to make it easier for our eyes, for that, I recommend a too called ThreadLogic. Here’s a screenshot of its interface loaded with a Thread Dump from our ‘TestRaceCondition’ program:
  
-Threadlogic
+![Threadlogic](https://themarcelor.github.com/blog/assets/img/Threadlogic.jpg)
  
 So, as you can see, it categorizes the threads to facilitate the analysis, e.g., a useful command there can be found under “tools > Find long running threads…”, I won’t dive too much on its features as it’s pretty intuitive.
  
 Now, about the Thread Dump Analysis: If you are a Java programmer, all this stuff will be processed by your brain naturally as you already understand Java Threads concepts, such as: synchronized, ‘Wait() & notify()’, sleep(), etc. If you are not a programmer, well.. I personally believe that every IT professional should strive to master two pillars: Code and Infrastructure, I know many programmers that hate network, server stuff and many systems engineers that hate programming, this has to stop. Anyway, let’s not digress on this philosophical matter,  if you are not a programmer and want some rules of thumb I only have one for you: Look at the monitors.
  
 Imagine the JVM monitor as a supervisor of a construction site, 3 guys need to dig a ditch but they only have one shovel, so they need to take turns (synchronized), the first one grabs (locks/acquire the monitor) the shovel (resource) and the supervisor makes sure that they don’t make a mess and try to do the same thing at the same time (corrupt resource), when the worker gets tired he drops the shovel (release) and call the next guy (notify) that was waiting (wait, duh), some of them can take a nap (sleep) and some of them might wish to keep digging until they finish their part of the job and then allow someone else to take over (join). I hope you got the gist, here’s an image to illustrate this pathetic analogy (yeah.. that thing on the right-side it’s a monitor).
- 
-Monitor
+
+![monitor](https://themarcelor.github.com/blog/assets/img/monitor.jpg)
  
 Now, based on these concepts that you learned here, check the Tread Dumps again and share your impressions in the comments section, even better, share your personal experiences with Thread Dump analysis, I bet everyone would find this interesting.
  
