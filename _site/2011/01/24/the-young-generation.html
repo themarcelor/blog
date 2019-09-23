@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>The Young Generation | TheMarceloR</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="The Young Generation" />
+<meta name="author" content="Marcelo Costa" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="From,To = Survivor Inside the Young area we have 3 smaller areas which are: ‘Eden’, ‘From’ and ‘To’, to illustrate:" />
+<meta property="og:description" content="From,To = Survivor Inside the Young area we have 3 smaller areas which are: ‘Eden’, ‘From’ and ‘To’, to illustrate:" />
+<link rel="canonical" href="http://localhost:4000/2011/01/24/the-young-generation.html" />
+<meta property="og:url" content="http://localhost:4000/2011/01/24/the-young-generation.html" />
+<meta property="og:site_name" content="TheMarceloR" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-01-24T00:00:00+00:00" />
+<script type="application/ld+json">
+{"description":"From,To = Survivor Inside the Young area we have 3 smaller areas which are: ‘Eden’, ‘From’ and ‘To’, to illustrate:","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2011/01/24/the-young-generation.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"The Young Generation","dateModified":"2011-01-24T00:00:00+00:00","datePublished":"2011-01-24T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/24/the-young-generation.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/">TheMarceloR</a></h1>
+        
+        
+          <img src="/assets/img/logo.png" alt="Logo" />
+        
+
+        <p>::Troubleshooting, Coding and Comic Books</p>
+
+        
+
+        
+
+        
+        <nav>
+<ul>
+  <li>
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+</nav>
+
+      </header>
+      <section>
+      
+      <h1>The Young Generation</h1>
+<p>24 Jan 2011 - Marcelo Costa</p>
+
+<p>From,To = Survivor
+Inside the Young area we have 3 smaller areas which are: ‘Eden’, ‘From’ and ‘To’, to illustrate:</p>
+
+<p>young_spaces</p>
+
+<p>Once an object gets created it shoud immediately go to Eden (in case it is too big for the Eden space, it will be automatically promoted to the Old generation, this event is called ‘premature promotion’, that is NOT cool), after a minor collection happens we move only the surviving objects to the first survival area, i.e., the ‘From’ space, after another minor collection, the same ones that survive will be moved to the second area, i.e., the ‘To’ Space, there is no GC in this space, the object is protected against the garbage collection, it will sit in this state until a ‘switch’ happens, in a given moment (whenever the JVM wants) the ‘To’ space will become the ‘From’ space and they will switch places again later over and over.</p>
+
+<p>This might be a little confusing so I will try to make it more complicated through a drawing:</p>
+
+<p>young_explicando</p>
+
+<p>So, the object is created on the ‘Eden’ space, it is moved to the ‘From’ space, and then moved to the ‘To’ space afterwards, the areas will switch places and the happy objects that were sitting on the ‘To’ area (protected against the GC) are now desperatly screaming on the ‘From’ area (back to the risk area), after another minor collection the ‘switch’ happens again and only the chosen ones will be promoted to the Old generation. You must be asking yourself “how many times are these objects dancing between survivor spaces?”, the argument that defines that is the ‘-XX:MaxTenuringThreshold’ (according to what I’ve researched, looks like the default value is 31).</p>
+
+<p>Controlling the spaces</p>
+
+<p>The most obvious JVM arguments are the classic ‘-Xms’ and ‘-Xmx’ (minimum and maximum of heap’s initial space) but to resize the heap in a proporcional way we can use ‘newRatio’ and ‘survivorRatio’, the first one is pretty simple, by default Sun’s JVM (Hotspot) has this parameter defined as ‘2’ (-XX:NewRatio=2), which means, the Old generation has 2 times the size of the Young generation, the argument -XX:NewRatio defines a proportion ‘1:n’ between the Young and the Old spaces.</p>
+
+<p>The argument ‘-XX:SurvivorRatio’ is more interesting, it defines a proportion ‘1:n’ between the Survivor and the Eden space. In other words, if this parameter is configured as ‘-XX:SurvivorRatio=6’ the survivor’s area will occupy 1/8 of the Young space. The Eden occupies 6 spaces and the survivor (from,to) will occupy 2 spaces, hence 6+2=8, here is another drawing:</p>
+
+<p>espacos_ratios</p>
+
+<p>So, the major challenge during a problem analysis or tuning is to find the perfect balance (or the best possible) of parameters that should be passed on to the JVM and, most important, the understanding of the application (how objects behave inside the heap).</p>
+
+      
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+  </body>
+</html>

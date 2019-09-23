@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Nashorn Jvm Monitoring Part 1 | TheMarceloR</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Nashorn Jvm Monitoring Part 1" />
+<meta name="author" content="Marcelo Costa" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’ve downloaded the OpenJDK 8 to start playing with Nashorn and dig more into that" />
+<meta property="og:description" content="I’ve downloaded the OpenJDK 8 to start playing with Nashorn and dig more into that" />
+<link rel="canonical" href="http://localhost:4000/2013/08/10/nashorn-jvm-monitoring-part-1.html" />
+<meta property="og:url" content="http://localhost:4000/2013/08/10/nashorn-jvm-monitoring-part-1.html" />
+<meta property="og:site_name" content="TheMarceloR" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-08-10T00:00:00+01:00" />
+<script type="application/ld+json">
+{"description":"I’ve downloaded the OpenJDK 8 to start playing with Nashorn and dig more into that","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2013/08/10/nashorn-jvm-monitoring-part-1.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Nashorn Jvm Monitoring Part 1","dateModified":"2013-08-10T00:00:00+01:00","datePublished":"2013-08-10T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2013/08/10/nashorn-jvm-monitoring-part-1.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/">TheMarceloR</a></h1>
+        
+        
+          <img src="/assets/img/logo.png" alt="Logo" />
+        
+
+        <p>::Troubleshooting, Coding and Comic Books</p>
+
+        
+
+        
+
+        
+        <nav>
+<ul>
+  <li>
+    <a href="/about.html">About</a>
+  </li>
+</ul>
+</nav>
+
+      </header>
+      <section>
+      
+      <h1>Nashorn Jvm Monitoring Part 1</h1>
+<p>10 Aug 2013 - Marcelo Costa</p>
+
+<p>I’ve downloaded the OpenJDK 8 to start playing with Nashorn and dig more into that</p>
+
+<p>Before we start Nashorning, I would like to contextualize what I’m trying to do here, I was curious about what kind of data we would see while monitoring a JVM executing the Nashorn Javascript engine. Considering the deep technical details behind these untyped dynamic chaotic scripting languages, we should see something interesting, right? So, moved by curiosity, I’ve downloaded the OpenJDK 8 to start playing with Nashorn and dig more into that. I will share the results of my research but first, let’s talk about how JVM monitoring is done today.</p>
+
+<p>—</p>
+
+<p>Why do we monitor the JVM? Two reasons: Performance &amp; Benchmarking.</p>
+
+<p>Performance: What if your application is slow? Hanging? Is it crashing all of a sudden? Is there some specific event that freezes the entire system for a moment? Yeah.. you must find the root cause of this bottleneck, but how? Don’t worry, I will present a few tools/commands and share a bunch of vague conjectures to leave you even more confused some cool info to get you started on this amazing world of the JVM Monitoring, are you psyched?</p>
+
+<p>Benchmarking: That’s when you take note of a given set of statistics that were generated while monitoring the system was being monitored and then you can use this report to compare how things change over time, i.e., after new patches, releases, etc. It’s an interesting way to avoid being caught with your pants down, if the system is changing over time you need to check if the resources you have will handle the work load.</p>
+
+<p>I want to cover 3 things today:</p>
+<ol>
+  <li>Thread Dumps</li>
+  <li>Heap Dumps</li>
+  <li>Profilers</li>
+</ol>
+
+<p>Cool, now… let’s see some code, shall we?</p>
+
+<p>Thread Dump analysis</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.BufferedInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestRaceCondition</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">new</span> <span class="nf">MyFileReader</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">MyFileReader</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">BufferedInputStream</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedInputStream</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="s">"/home/themarcelor/someFile.txt"</span><span class="o">));</span>
+            <span class="n">readThisFile</span><span class="o">(</span><span class="n">reader</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">readThisFile</span><span class="o">(</span><span class="nc">BufferedInputStream</span> <span class="n">reader</span><span class="o">){</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">reader</span><span class="o">.</span><span class="na">available</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">((</span><span class="kt">char</span><span class="o">)</span> <span class="n">reader</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+            <span class="o">}</span>
+           <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">num</span><span class="o">++);</span>
+           <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This code is going to create 10 threads and read the contents of “somFile.txt”, you can easily create a dummy file somewhere in your machine and adapt the code to read its lines, now.. let it create a few threads and then let’s take some Thread Dumps.</p>
+
+<p>challenge	Questions: Why are we doing this? What is a Thread Dump?</p>
+
+<p>Answer: We are doing this to illustrate how a multi-threading program can, sometimes, face a situation where a given resource will be ‘locked’ by another activity or it won’t be available due to external factors, e.g., a number of connections were borrowed from a JDBC Connection Pool and the database can’t accept any more connections, there will be several threads/transactions waiting on the queue to be processed (just like our threads that will be waiting to read ‘someFile.txt’), that might slow down some activities in your system.</p>
+
+<p>A Thread Dump is like a picture of whatever is going on inside the JVM, it’s a full report of all the Java objects/classes that are being executed at that specific moment, i.e., a bunch of stack traces containing the state of the threads along with information about locks.</p>
+
+<p>Now, let’s create a small script to generate Thread Dumps:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+<span class="nv">SLEEP</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">PID</span><span class="o">=</span><span class="nv">$2</span>
+<span class="k">while</span> : <span class="p">;</span> <span class="k">do
+  </span><span class="nb">date
+  kill</span> <span class="nt">-3</span> <span class="nv">$PID</span>
+  <span class="nb">sleep</span> <span class="nv">$SLEEP</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>This can be executed like this:</p>
+
+<p><code class="highlighter-rouge">./takeThreadDumps.sh 5 4321</code></p>
+
+<p>It is going to trigger the SIGQUIT signal against the Process Identifier (PID) 4321 every 5 seconds, it’s interesting to take multiple thread dumps because it help us analyze what happened within a given time-frame, we can identify what has been running for the last 10, 15 or 20 seconds, if some ExecuteThread: ’16’ that is processing some DB activity (e.g., oracle.jdbc.driver.T4CXAResource.doRollback (T4CXAResource.java:648) ) is showing up in 2 Thread Dumps that were taken in the interval of 10 seconds, something strange is going on.. you better call the DBA.</p>
+
+<p>Yes, that’s for linux users, if you are a Windows user ( 😦 ) then you can run the Java command through your DOS prompt and hit [Ctrl] + [Break] to manually generate Thread Dumps, but it’s best to just use a command-line tool called ‘jstack’, it’s OS-independent, e.g.:</p>
+
+<p><code class="highlighter-rouge">$JAVA_HOME/bin/jstack [PID] &gt; td.txt</code></p>
+
+<p>If you open one of these Thread Dump files, you are going to see something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2013-05-22 12:30:43
+Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>23.7-b01 mixed mode<span class="o">)</span>:
+“Attach Listener” daemon <span class="nv">prio</span><span class="o">=</span>10 <span class="nv">tid</span><span class="o">=</span>0x00007fddec001000 <span class="nv">nid</span><span class="o">=</span>0x491d waiting on condition <span class="o">[</span>0x0000000000000000]
+java.lang.Thread.State: RUNNABLE
+“DestroyJavaVM” <span class="nv">prio</span><span class="o">=</span>10 <span class="nv">tid</span><span class="o">=</span>0x00007fde04009000 <span class="nv">nid</span><span class="o">=</span>0x48dc waiting on condition <span class="o">[</span>0x0000000000000000]
+java.lang.Thread.State: RUNNABLE
+“Thread-5” <span class="nv">prio</span><span class="o">=</span>10 <span class="nv">tid</span><span class="o">=</span>0x00007fde04221000 <span class="nv">nid</span><span class="o">=</span>0x48ef waiting on condition <span class="o">[</span>0x00007fdde36e6000]
+java.lang.Thread.State: TIMED_WAITING <span class="o">(</span>sleeping<span class="o">)</span>
+at java.lang.Thread.sleep<span class="o">(</span>Native Method<span class="o">)</span>
+at MyFileReader.readThisFile<span class="o">(</span>TestRaceCondition.java:40<span class="o">)</span>
+– locked &lt;0x00000000db9c5f20&gt; <span class="o">(</span>a java.lang.Class <span class="k">for </span>MyFileReader<span class="o">)</span>
+at MyFileReader.run<span class="o">(</span>TestRaceCondition.java:28<span class="o">)</span>
+</code></pre></div></div>
+
+<p>It’s perfectly possible to analyze the file without any tools, or even write some code to ‘squeeze’ the long running threads throughout a given set of Thread Dumps files, however, some tools can speed up the process by organizing the data to make it easier for our eyes, for that, I recommend a too called ThreadLogic. Here’s a screenshot of its interface loaded with a Thread Dump from our ‘TestRaceCondition’ program:</p>
+
+<p>Threadlogic</p>
+
+<p>So, as you can see, it categorizes the threads to facilitate the analysis, e.g., a useful command there can be found under “tools &gt; Find long running threads…”, I won’t dive too much on its features as it’s pretty intuitive.</p>
+
+<p>Now, about the Thread Dump Analysis: If you are a Java programmer, all this stuff will be processed by your brain naturally as you already understand Java Threads concepts, such as: synchronized, ‘Wait() &amp; notify()’, sleep(), etc. If you are not a programmer, well.. I personally believe that every IT professional should strive to master two pillars: Code and Infrastructure, I know many programmers that hate network, server stuff and many systems engineers that hate programming, this has to stop. Anyway, let’s not digress on this philosophical matter,  if you are not a programmer and want some rules of thumb I only have one for you: Look at the monitors.</p>
+
+<p>Imagine the JVM monitor as a supervisor of a construction site, 3 guys need to dig a ditch but they only have one shovel, so they need to take turns (synchronized), the first one grabs (locks/acquire the monitor) the shovel (resource) and the supervisor makes sure that they don’t make a mess and try to do the same thing at the same time (corrupt resource), when the worker gets tired he drops the shovel (release) and call the next guy (notify) that was waiting (wait, duh), some of them can take a nap (sleep) and some of them might wish to keep digging until they finish their part of the job and then allow someone else to take over (join). I hope you got the gist, here’s an image to illustrate this pathetic analogy (yeah.. that thing on the right-side it’s a monitor).</p>
+
+<p>Monitor</p>
+
+<p>Now, based on these concepts that you learned here, check the Tread Dumps again and share your impressions in the comments section, even better, share your personal experiences with Thread Dump analysis, I bet everyone would find this interesting.</p>
+
+<p>Heap Dump analysis</p>
+
+<p>Heap Dumps are ‘snapshots’ of heap usage, i.e., tables of data indicating how many classes/objects are loaded, how much memory the classes/objects are using and what references they have between each other, these Heap Dump files store information in a very specific format and can only be visualized with Heap Dump Analysis tools, e.g., “Eclipse Memory Analyzer” or “IBM HeapAnalyzer”.</p>
+
+<p>This post is getting quite lenghty so I’m glad I have a bunch of other posts ready to cover this section:</p>
+
+<p>JVM &amp; Garbage Collection
+Main Garbage Collection Algorithms
+Permanent Generation
+Garbage Collection logs
+Young Generation
+Out Of Memory Errors and Heap Dumps</p>
+
+<p>Profilers</p>
+
+<p>Here is where we do the real monitoring, the recording and analysis of the JVM’s internal data is done through a set of tools called ‘profilers’, Profiling is a mechanism whereby one of these tools connect to the JVM through the Java Virtual Machine Tool Interface (JVMTI) to retrieve information about cool JVM stuff, like Threads  and Memory (heap) usage. It also allows a system administrator to send commands to Managed Beans through Java Management Extensions (JMX) methods. Ok, let’s get down to business, run your java program with the following JVM arguments:</p>
+
+<p>java -Dcom.sun.management.jmxremote.port = 9080 -Dcom.sun.management.jmxremote.authenticate = false -Dcom.sun.management.jmxremote.ssl = false TestRaceCondition</p>
+
+<p>Now you should pick your Profiler, there are many implementations that work with JVMTI, here are a few options:
+JRockit Mission Control
+Visual VM
+JConsole
+Eclipse TPTP</p>
+
+<p>JRockit is my favorite (which should be replaced by Java Mission Control soon), the interface is very practical and it’s full of features (Czech out the video!), Visual VM is simpler but has a cool GC log viewer plugin, I’m not a big fan of jConsole but it’s shipped with older versions of the JDK so it might come in handy, Eclipse TPTP gives that feeling of working within the same space, which is good but you will need to download too many things to start using it (it’s pretty cool though), in summary: they’re all awesome! It depends on your mood.</p>
+
+<p>—
+Ok, that’s it for today, in the next part of the “Nashorn and the JVM monitoring challenge” series, we will learn more about ‘invokedynamic’ and the bizarre results that we get when we try to monitor/troubleshoot Nashorn-based applications.</p>
+
+<p>Cheers!</p>
+
+      
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+  </body>
+</html>

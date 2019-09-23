@@ -2,6 +2,8 @@
 layout: post
 author: Marcelo Costa
 ---
+1st Post
+
 JVM e Garbage Collection
 Oi Pessoal, tudo bem? Starting here the 1º blog post, I’m going to try to create an opuscule (i.e., a wee text) about Garbage Collection e the Java Virtual Machine. This is for those of you that never programmed even a pathetic HelloWorld class and whoever wants to reinforce existing knowledge, e.g., something you learned during the SCJA (Sun Certified Java Associate) studies. Let us jump right into it and start with the first universal truth:
 
