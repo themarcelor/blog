@@ -56,7 +56,8 @@ Quick review of the docker run syntax:
 
 | -h (hostname)    | Hostname within the Docker network |
 
-| –link	           | Allow communication with another container in the Docker network |
+| –link	           | Allow communication with another 
+container in the Docker network |
 
 | -p (port)        | Exposed port ( <host_port>:<container_port>) |
 
