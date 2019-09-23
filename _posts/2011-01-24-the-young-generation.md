@@ -2,7 +2,8 @@
 layout: post
 author: Marcelo Costa
 ---
-From,To = Survivor
+# From,To = Survivor
+
 Inside the Young area we have 3 smaller areas which are: ‘Eden’, ‘From’ and ‘To’, to illustrate:
 
 ![young_spaces](https://themarcelor.github.com/blog/assets/img/young_spaces.jpg)
@@ -15,7 +16,7 @@ This might be a little confusing so I will try to make it more complicated throu
 
 So, the object is created on the ‘Eden’ space, it is moved to the ‘From’ space, and then moved to the ‘To’ space afterwards, the areas will switch places and the happy objects that were sitting on the ‘To’ area (protected against the GC) are now desperatly screaming on the ‘From’ area (back to the risk area), after another minor collection the ‘switch’ happens again and only the chosen ones will be promoted to the Old generation. You must be asking yourself “how many times are these objects dancing between survivor spaces?”, the argument that defines that is the ‘-XX:MaxTenuringThreshold’ (according to what I’ve researched, looks like the default value is 31).
 
-Controlling the spaces
+# Controlling the spaces
 
 The most obvious JVM arguments are the classic ‘-Xms’ and ‘-Xmx’ (minimum and maximum of heap’s initial space) but to resize the heap in a proporcional way we can use ‘newRatio’ and ‘survivorRatio’, the first one is pretty simple, by default Sun’s JVM (Hotspot) has this parameter defined as ‘2’ (-XX:NewRatio=2), which means, the Old generation has 2 times the size of the Young generation, the argument -XX:NewRatio defines a proportion ‘1:n’ between the Young and the Old spaces.
 

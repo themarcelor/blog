@@ -2,11 +2,11 @@
 layout: post
 author: Marcelo Costa
 ---
-Inheritance, Polymorphism and Encapsulation
+# Inheritance, Polymorphism and Encapsulation
 
 Hello fellow readers, it’s been a while since last time I blogged so here’s a quick post to review some basic OOP concepts, three of them to be more precise: Inheritance, Polymorphism and Encapsulation.
 
-First you need to know what a class  is, it is that piece of code that you can use to instantiate objects, here’s an example in Java:
+First you need to know what a class is: It is that piece of code that you can use to instantiate objects, here’s an example in Java:
 
 ```js
 public class Beer {
@@ -28,6 +28,8 @@ var Beer = function() {
 Here’s how you would test the Javascript version  in your browser (Chrome’s Developer Tools or Firefox’s Firebug):
 
 ![heineken](https://themarcelor.github.com/blog/assets/img/heineken.jpg)
+
+# Inheritance & Polymorphism
 
 So, moving on to Inheritance and Polymorphism, let’s use the following Friday Quiz question to illustrate these concepts:
 
@@ -152,6 +154,8 @@ See what happened there? I have added a new function(method) to Toy and I have i
 Now that we understand inheritance with Javascript, the rest is pretty much the same, we can increment the specific instances of Toy through polymorphism and get to the result we want.
 
 Now let’s move on to our final topic: Encapsulation.
+
+# Encapsulation
 
 ![300px-capsule_3](https://themarcelor.github.com/blog/assets/img/300px-capsule_3.png)
 

@@ -4,7 +4,9 @@ author: Marcelo Costa
 ---
 Automating deployment, scaling, and management of containerized applications
 
-What is Kubernetes? Here’s the description from the official doc:
+# What is Kubernetes?
+
+Here’s the description from the official doc:
 
 “Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.”
 
@@ -28,6 +30,9 @@ To illustrate a more tangible example of Kubernetes’ powers, I’m sharing bel
 
 https://github.com/themarcelor/MyWebSocketsApp
 https://github.com/themarcelor/NginxTLSTerminationInK8SPOC
+
+# The POC
+
 The POC was conducted with:
 
 Minikube. This is a tiny Kubernetes engine running within a single VirtualBox VM. This is all you need to start playing with Kubernetes running your own experiments.

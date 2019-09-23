@@ -23,18 +23,16 @@ The water is going to overflow regardless, the ‘OutOfMemoryError’ is going t
 So, you can generate a Heap Dump to analyze these objects, here are a few methods to generate Heap Dumps:
 
 1. -XX:+HeapDumpOnOutOfMemoryError
+2. -XX:+HeapDumpOnCtrlBreak (Windows)
+3. jmap -dump:format=b,file=HeapDump.hprof <pid> (JVM’s PID)
 
-2. -XX:+HeapDumpOnCtrlBreak                                                              (Windows)
-
-3. jmap -dump:format=b,file=HeapDump.hprof <pid>                (JVM’s PID)
-
-*The HeapDump will be generated in the 'working directory'
+* The HeapDump will be generated in the 'working directory'
 (e.g., In Tomcat, the HeapDump is generated in the /bin folder)
 Here’s a good resource that gathers all the best approaches to generate Heap Dumps:
 
 http://wiki.sdn.sap.com/wiki/pages/viewpage.action?pageId=33456
 
-How do I read a Heap Dump?
+# How do I read a Heap Dump?
 
 You are going to need a tool that can interpret the Heap Dump, I recommend IBM Heap Analyzer and the Eclipse Memory Analyzer. If you already generated your Heap Dump file in the .hprof format so it is ready to be analyzed.
 
@@ -42,10 +40,12 @@ IBM Heap Analyzer: http://www.alphaworks.ibm.com/tech/heapanalyzer
 
 1) Run the ‘ha398.jar’ file with the following command:
 
-java -jar ha398.jar
+`java -jar ha398.jar`
+
 If the Heap Dump is a large file, you might need to allocate more memory to the tool:
 
-java -Xmx1800m -jar ha398.jar
+`java -Xmx1800m -jar ha398.jar`
+
 If you have a decent machine, eventually you will gonna get through this screen here:
 
 ![heap_analysis_1](https://themarcelor.github.com/blog/assets/img/heap_analysis_1.jpg)

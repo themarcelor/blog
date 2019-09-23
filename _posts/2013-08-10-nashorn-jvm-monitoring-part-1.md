@@ -8,7 +8,7 @@ Before we start Nashorning, I would like to contextualize what I’m trying to d
  
 —
  
-Why do we monitor the JVM? Two reasons: Performance & Benchmarking.
+# Why do we monitor the JVM? Two reasons: Performance & Benchmarking.
 
  
 Performance: What if your application is slow? Hanging? Is it crashing all of a sudden? Is there some specific event that freezes the entire system for a moment? Yeah.. you must find the root cause of this bottleneck, but how? Don’t worry, I will present a few tools/commands and share a bunch of vague conjectures to leave you even more confused some cool info to get you started on this amazing world of the JVM Monitoring, are you psyched?
@@ -22,7 +22,7 @@ I want to cover 3 things today:
  
 Cool, now… let’s see some code, shall we?
  
-Thread Dump analysis
+# Thread Dump analysis
 
 ```java
 import java.io.BufferedInputStream;
@@ -130,7 +130,7 @@ Imagine the JVM monitor as a supervisor of a construction site, 3 guys need to d
  
 Now, based on these concepts that you learned here, check the Tread Dumps again and share your impressions in the comments section, even better, share your personal experiences with Thread Dump analysis, I bet everyone would find this interesting.
  
-Heap Dump analysis
+# Heap Dump analysis
  
 Heap Dumps are ‘snapshots’ of heap usage, i.e., tables of data indicating how many classes/objects are loaded, how much memory the classes/objects are using and what references they have between each other, these Heap Dump files store information in a very specific format and can only be visualized with Heap Dump Analysis tools, e.g., “Eclipse Memory Analyzer” or “IBM HeapAnalyzer”.
  
@@ -143,7 +143,7 @@ Garbage Collection logs
 Young Generation
 Out Of Memory Errors and Heap Dumps
  
-Profilers
+# Profilers
  
 Here is where we do the real monitoring, the recording and analysis of the JVM’s internal data is done through a set of tools called ‘profilers’, Profiling is a mechanism whereby one of these tools connect to the JVM through the Java Virtual Machine Tool Interface (JVMTI) to retrieve information about cool JVM stuff, like Threads  and Memory (heap) usage. It also allows a system administrator to send commands to Managed Beans through Java Management Extensions (JMX) methods. Ok, let’s get down to business, run your java program with the following JVM arguments:
  
@@ -157,8 +157,7 @@ JConsole
 Eclipse TPTP
  
 JRockit is my favorite (which should be replaced by Java Mission Control soon), the interface is very practical and it’s full of features (Czech out the video!), Visual VM is simpler but has a cool GC log viewer plugin, I’m not a big fan of jConsole but it’s shipped with older versions of the JDK so it might come in handy, Eclipse TPTP gives that feeling of working within the same space, which is good but you will need to download too many things to start using it (it’s pretty cool though), in summary: they’re all awesome! It depends on your mood.
- 
-—
+
 Ok, that’s it for today, in the next part of the “Nashorn and the JVM monitoring challenge” series, we will learn more about ‘invokedynamic’ and the bizarre results that we get when we try to monitor/troubleshoot Nashorn-based applications.
  
 Cheers!

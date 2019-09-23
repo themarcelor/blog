@@ -30,7 +30,7 @@ http://<insert_hostname_here>:8983/solr/admin/collections?action=DELETE&name=the
 
 Through this exercise of sharing my personal musings involving documentation, I guess I will take a step at some compilation of best practices to create good documentation. Hopefully, the following guidelines can be adapted to different types of documentation, even if it is about architecture, features, troubleshooting steps, etc.
 
-#1 – You must have empathy
+# 1 – You must have empathy
 Try to put yourself in someone else’s shoes. Yeah, this one can be extremely relative and vague but, just like everything else in life, I believe it is interesting to try to leave the proper breadcrumbs and send the elevator back to help other people to reach that level of understanding you have. just imagine how amazing it would be if you could avoid all those IM windows that are constantly blinking while you try to concentrate and write some code, just reply with “RTFM” (Read The F**ing Full Manual) and send the link. Keep the following resources in mind:
 
 - Write an overview
@@ -38,15 +38,13 @@ Try to put yourself in someone else’s shoes. Yeah, this one can be extremely r
 - Expand acronyms
 - Collect feedback once you post it and amend if necessary
 
-#2 – Help the visual learners with some diagrams
+# 2 – Help the visual learners with some diagrams
 Describe the basic architecture and, perhaps even dive into the components involved in the request flow. For automated operations, another idea is to describe a timeline of events and present the entities involved in the orchestration. Use point #1 as a guidance on which visual elements would be more appropriate for the scenario you are working on.
 
 ![pipeline](https://themarcelor.github.com/blog/assets/img/pipeline.jpg)
 
-#3 – Name it, tag it and categorize everything
+# 3 – Name it, tag it and categorize everything
 The documentation you create is useless unless it can be found. So make sure you put some meaningful name and add some tags to make it easy for your internal collaboration system to index it properly. Group the pages into sections that make sense and advertise your documentation in your next technical update or knowledge sharing session.
-
-—
 
 Of course, there is no silver bullet. The documentation will become outdated, even the code can turn into a misleading amalgamation of legacy and working methods (some people don’t realize they have a version-control system so they decide to leave old stuff in the code “just in case”). However, with the proper set of references, links and comments (or other forms of general collaboration), there are alternatives to find the up-to-date information, either by going to the ticket and checking the latest updates on it or by checking the commit history of the components associated with the use case under investigation.
 

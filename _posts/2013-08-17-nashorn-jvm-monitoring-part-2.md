@@ -98,15 +98,17 @@ Hi, my name is Marcelo
 
 That’s it, we have our test script, let’s move on to the second topic.
 
-Understanding invokedynamic
+# Understanding invokedynamic
+
 Ok, we already know that the Nashorn Javascript engine is 100% compliant with ECMA-262 5.1 and it is fully implemented with the new “invokedynamic” bytecode instruction, therefore, is faster and more compliant than Mozilla’s Rhino, but what’s invokedynamic?
 
 Executing Java code is not the JVM’s solely purpose, every Java code is compiled into bytecode and this is the piece that gets consumed and processed by the JVM, if a programming language can be compiled to bytecode than its instructions can be interpreted by the JVM (e.g., Closure or Scala). The bytecode is an efficient simplified form of non-human-readable code that is executed closer to machine-level instructions, i.e., better performance.
 
 The JVM has approximately 200 “opcodes” to perform invocation of instructions, handle access to fields and control objects and arrays. The following table presents the types of invocation bytecode operations that were available before JDK version 7:
 
-| Opcode | Usage         |
-| ------ | ------------- |
+| Opcode | Usage                                                   |
+
+| ------ | ------------------------------------------------------- |
 
 | Invokestatic | For static methods |
 
@@ -155,8 +157,11 @@ What about Heap Dumps? Let’s see what we get when we take a Heap Dump during t
 
 Yep, it also got a little weird here. Since we don’t have packages and typed classes, there’s no way to easily track down where are our “Classes” and the number/size of objects associated to them, I did some investigation and found this “jdk.nashorn.internal.scripts.JO” object that apparently serves as a wrapper to the objects created through Javascript functions, the downside is that it doesn’t separate the objects based on its “Class” (at least I didn’t find any parameter that pointed me anywhere near the “jdk.nashorn.internal.scripts.Script$Person” object), so if you have 100 instances of ‘Person’ and 100 instances of ‘Car’, they will be mingled in this sea of ‘JO’ instances (I haven’t tested other object forms yet, e.g., Object Literals; not sure if we would see something different). So, how do we easily keep track of the size of objects created from a given function()? Well, we could rely on the format of the attributes and play with OQL (Object Query Language) and isolate a given set of objects to determine how much space they are taking up, but that’s just messy. Currently, there are a few DEBUG parameters documented in “$OPENJDK8_HOME/nashorn/docs/DEVELOPER_README“, some of them are quite interesting and might provide the answers we need, e.g.:
 
+```
 print(Debug.map(p));
 print(Debug.dumpCounters());
+```
+
 Now, to conclude this post, I leave you with a message from Jim Laskey, this is one of the replies that he sent me when I was questioning his team about these concerns:
 
 “The next round of development will be focusing on tools, so what you are trying to accomplish will get easier. You have an opportunity to provide us guidance on this…. Stack crawls will get better once we start working on debugging APIs.”.

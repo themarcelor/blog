@@ -6,19 +6,21 @@ What is Docker? It is magic powered by unicorn blood.
 
 In this post you will learn:
 
-What is Docker?
-How to install and run it
-More about Docker images
-How to return to the host-machine without killing my container?
-How to use your own internal Docker registry to store images
-How to push your image to Artifactory
-The Dockerfile: Best practices & versioning
-How to copy a Docker image to some other Docker host
-Docker networking
-How to monitor containers
+- What is Docker?
+- How to install and run it
+- More about Docker images
+- How to return to the host-machine without killing my container?
+- How to use your own internal Docker registry to store images
+- How to push your image to Artifactory
+- The Dockerfile: Best practices & versioning
+- How to copy a Docker image to some other Docker host
+- Docker networking
+- How to monitor containers
+
 So, let’s get started.
 
-What is Docker?
+# What is Docker?
+
 It is magic powered by unicorn blood.
 
 Think of it as a Virtual Machine but, instead of having the Operating System + Hypervisor layers below the application you want to run, it just shares a “sub-context” of the Linux Kernel and allows you to run other Linux’es within the same Linux — Completely separated virtual environments with their own libraries + OS tools + applications + exposed ports, etc. And why is it so cool? You might ask, once you assemble your container with everything you want, you can take a snapshot of that (which is known as a Docker IMAGE) and spin new containers. You can spin multiple instances of a given image, think of it in terms of OOP, where you can create instances out of a class, so you are doing basically the same thing by creating containers out of a Docker image.
@@ -27,7 +29,8 @@ Think of it as a Virtual Machine but, instead of having the Operating System + H
 
 Beyond the virtualized, isolated characteristics, it is really time-efficient. There’s no Guest OS to boot here so you can actually start your container in a split second with the software you want, that, according to the actual command you set for it, it will start that process in the foreground for whatever purpose. If it is a web or an application server, it will just come up straight away, ready to service requests.
 
-How to install and run it
+# How to install and run it
+
 The installation is very straight forward, you can find the details in the link below:
 https://docs.docker.com/engine/installation/
 
@@ -44,8 +47,9 @@ Then you can start a container and play in a completely isolated / virtualized e
 
 Quick review of the docker run syntax:
 
-| Parameter | Description |
-| --------- | ----------- |
+| Parameter | Description                                 |
+
+| --------- | -----------                                 |
 
 | -d (detached) | Runs in detached mode (not interactive) |
 
@@ -71,7 +75,7 @@ Here is a slightly more complex example (running a local project just to illustr
 
 `# docker run -d –name mykanban -h mykanbanapp –link mydbcontainer -p 8080:8080 -w /opt/mykanban -v /home/marcelo/Projects/MyOnlineKanban/mykanban:/opt/mykanban java:8 /usr/bin/jjs – cp lib/mongo-2.10.1.jar httpsrv.js`
 
-More about Docker images
+# More about Docker images
 So, let’s say I want to create my image with a “netcat” pre-installed. I would need to run:
 
 `# docker run -it –name my-docker-name centos /bin/sh`
@@ -126,8 +130,7 @@ We can create new images out of base images for different purposes, we can even 
 
 ![image_hierarchy](https://themarcelor.github.com/blog/assets/img/image_hierarchy.jpg)
 
-How to use your own internal Docker registry to store images
- 
+# How to use your own internal Docker registry to store images
 
 Here is how you connect to it:
 
@@ -145,26 +148,32 @@ Login Succeeded
 
  
 
-How to push your image to artifactory
+# How to push your image to artifactory
+
 First we need to tag it:
 
 Here’s the syntax => docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/] [USERNAME/]NAME[:TAG]
 
+```
 # docker tag my-busybox artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test- tag
 
 # docker push artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag
 The push refers to a repository [artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag] 06cc5a7ff579: Pushed
 test-tag: digest: sha256:82b9618df57b5fc2ebed3d79c3d26e3ccb51e3f302348979b7534af555e2913a
 size: 940
+```
 
+Checking results:
+```
 # docker images | grep test-tag
 REPOSITORY TAG IMAGE ID SIZE
 
 artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag  17 minutes ago 1.113 MB
+```
 
 Pushed and tagged.
 
-The Dockerfile: Best practices & versioning
+# The Dockerfile: Best practices & versioning
 Committing your docker container into an image is a bad practice because the whole process is very manual and not very flexible. Imagine that you want to install an earlier version of “netcat”, then you will need to jump inside a container that was created out of the image you committed earlier and then uninstall & install another version of netcat. Or you need to create another container from scratch. It’s just too messy. Imagine a more granular change involving multiple points of configuration within the same container (e.g., service packs, JVM arguments, port configuration, OS-level tweaks, etc.), it’s a nightmare to manage all that by manually committing changes.
 
 Therefore, do not commit containers !!! THAT WAS JUST FOR SHOW! — USE DOCKERFILES!!!
@@ -186,14 +195,15 @@ RUN yum -y install net-tools
 
 3. Create a new custom image with the following command (running within the “my-nc- server” directory):
 
-# docker build .
+`# docker build .`
 You can also introduce the [name-of-the-image]:[tag] notation with the “–tag” parameter:
 
 `# docker build –tag my-nc-server:test-tag .`
 
 _*More info: https://docs.docker.com/engine/userguide/eng-image/docker_
 
-How to copy a Docker image to some other Docker host
+# How to copy a Docker image to some other Docker host
+
 You can also copy images as packages with the Save/Export & Load commands.
 
 What is the difference between Save and Export? Answer: Save persists an image whereas Export persists containers.
@@ -203,7 +213,6 @@ Here is how you do it:
 ```
 # docker save my-busybox >my-busybox.tar
 # scp my-busybox.tar user@somemachine:/home/user/
-```
 
 Uploading….
 
@@ -221,7 +230,7 @@ my-busybox.tar 100% 1299KB 1.3MB/s 00:00
 my-busybox latest 5d8cbe820583 About an hour ago 1.113 MB
 ```
 
-Docker networking
+# Docker networking
 
 Docker offers 3 types of network configuration: bridge, host and none.
 You can define “none” if you want to waste a lot of time configuring everything yourself.
@@ -239,29 +248,36 @@ An example of the how the network interfaces connect with each other:
 Be aware that scripts under “/etc/sysconfig/network-scripts” that contain the name of that interface can potentially block this flow, depending on its instructions.
 
 Yeah, a very specific caveat here… you guessed it right, I had faced an issue with that and got stuck for a few days on it 😦
-How to monitor containers
+
+# How to monitor containers
+
 Ideally, if you have a container orchestration system like Kubernetes, then you can consider sophisticated tools like Prometheus. If you just want to monitor containers from within the Docker host, here are some useful commands:
 
-docker top
+## docker top
+
+```
 # docker top nc-server
 
 UID PID PPID C STIME TTY TIME CMD
 
 root 28524 28510 0 11:36 pts/1 00:00:00 nc -vv -l 8080
+```
 
-docker stats
+## docker stats
 
+```
 # docker stats nc-server
 CONTAINER CPU % MEM USAGE / LIMIT MEM % NET I/O BLOCK I/O PIDS
 
 nc-server 0.00% 9.769MB/12.42GB 0.08% 48B/648B 9.409MB/0B 0
+```
 
 Keep in mind:
 
+```
 docker exec -it <container-name> /bin/bash
 ctrl+p & ctrl+q (return to docker host)
 docker logs -ft <container-name>
-
-—
+```
 
 That’s it. Just some general Docker instructions that should bring you up to speed if you never play with it before, please provide suggestions to expand this article in the comments.
