@@ -48,8 +48,8 @@ Then you can start a container and play in a completely isolated / virtualized e
 
 Quick review of the docker run syntax:
 
-| Parameter        | Description                                 |
-| :--- | :--- |
+| Parameter        | Description                             |
+| :---             | :---                                    |
 | -d (detached)    | Runs in detached mode (not interactive) |
 
 | –name	           | Name of the container |
