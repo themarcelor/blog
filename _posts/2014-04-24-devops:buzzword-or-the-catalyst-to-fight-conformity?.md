@@ -24,7 +24,7 @@ The first group that gives up can be classified as “Furniture that writes code
 
 There’s the second group that I call “The Prodigious Tourists” – These guys (and girls) are geniuses, they carry a bias against mainstream stuff like Java or .NET, always leaning towards trending stuff, most of them would write a “Hello World” and start spreading the word about the new “silver bullet” that is out on the market, everything that you use is legacy technology for them, their skills are just as good as their ability to keep whining about all the company problems without presenting any tangible idea to solve them. They will, in most cases, leave the company to work for some cool startup where the receptionist is dressed as a Pokemon, then, as its product/service catalogue evolves, this company hires a consultant, things start getting too bureaucratic and they will pack their bag and move on to the next one.
 
-![nodejs](https://themarcelor.github.com/blog/assets/img/nodejs.jpg)
+![nodejs1](https://themarcelor.github.com/blog/assets/img/nodejs1.jpg)
 
 And then we have “The Mavericks” –  Office pariahs, people in the coffee room laugh at them because of their crazy ideas, they want to improve things, naive day dreamers that should not be near a server, they will struggle with their limited network access & awareness of office politics to enhance processes leaving a trace of rejected Proofs of Concept along the way.
 

@@ -40,6 +40,7 @@ Of course… using the decompiled code to perform Remote Debugging is also an op
 -Djava.compiler\=NONE -Xdebug -Xnoagent -Xrunjdwp\:transport\=dt_socket,server\=y,address\=6065,suspend\=n
 Anyway, in order to update, let’s say, a JSP inside a .war package we need to create the same folder structure outside the war and place a copy of the JSP inside this structure, for example:
 
+```
 chaotic.war
 |– scripts
 |– common
@@ -47,6 +48,7 @@ chaotic.war
 .    |– links
 .      |– example.jsp
 |– WEB-INF
+```
 
 If you are in the same directory as the ‘chaotic.war’ file, use the command “mkdir -p jsps/links” to create the folder structure and then copy the JSP to the ‘links’ folder. After you modify the JSP using your favorite editor (e.g., Emacs or vi) you just need to run the following command:
 

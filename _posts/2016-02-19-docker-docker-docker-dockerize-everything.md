@@ -37,7 +37,7 @@ Don’t forget to start your Docker daemon:
 
 If you are in a Mac OS environment, find the little Docker icon on the top-right corner of your screen:
 
-![docker_running](https://themarcelor.github.com/blog/assets/img/docker_running.jpg)
+![docker_running](https://themarcelor.github.com/blog/assets/img/docker_running.png)
 
 Then you can start a container and play in a completely isolated / virtualized environment:
 # docker run -it –name mycontainer centos /bin/sh
@@ -45,7 +45,6 @@ Then you can start a container and play in a completely isolated / virtualized e
 Quick review of the docker run syntax:
 
 | Parameter | Description |
-
 | --------- | ----------- |
 
 | -d (detached) | Runs in detached mode (not interactive) |

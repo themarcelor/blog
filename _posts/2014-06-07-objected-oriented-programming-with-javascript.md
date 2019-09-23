@@ -82,7 +82,7 @@ class Aeroplane extends Toy {
 
 Let’s talk about what’s going on there, if you skip the “SantaToys” class and focus on the last 3 classes within this little program: Toy, Train and Aeroplane, you will find an example of inheritance in OOP.
 
-![inheritance](https://themarcelor.github.com/blog/assets/img/inheritance.jpg)
+![inheritance](https://themarcelor.github.com/blog/assets/img/inheritance.png)
 
 Toy is in a higher level of abstraction and both Train and Aeroplane are specializations of that base class, i.e., Train and Aeroplane are toys (duh). So the cool thing about Inheritance is that it organize the entities involved in a given context and facilitates the coding process.
 
@@ -153,7 +153,7 @@ Now that we understand inheritance with Javascript, the rest is pretty much the 
 
 Now let’s move on to our final topic: Encapsulation.
 
-![300px-capsule_3](https://themarcelor.github.com/blog/assets/img/300px-capsule_3.jpg)
+![300px-capsule_3](https://themarcelor.github.com/blog/assets/img/300px-capsule_3.png)
 
 Imagine an application that manages sensitive data from a group of People (e.g., Big Company or a Bank), we can write the following classes to accomplish this objective.
 
