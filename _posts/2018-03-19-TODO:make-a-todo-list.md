@@ -17,7 +17,7 @@ Create your TODO list
 
 Start by playing with a sample todo list. Just add an item with an asterisk (*) and you can hold ​`​alt` and press ENTER to add a new item under the same column. If you wish promote or demote that item you can hold `alt` and use the arrow keys to add or remove asterisks (shifting between columns).
 
-![org_mode_basic](https://themarcelor.github.com/blog/assets/img/org_mode_basic.jpg)
+![org_mode_basic](https://themarcelor.github.com/blog/assets/img/org_mode_basic.png)
 
 Here are some useful commands:
 
@@ -33,7 +33,7 @@ M – x org-sort-entries to organize the list in [alphabetic, numeric, creation-
 Track the progress of your tasks
 Put a [ 0 % ] next to the first item at the top of the list and it will be automatically updated as you mark “TODO” items as “DONE”.
 
-![org_mode_percent](https://themarcelor.github.com/blog/assets/img/org_mode_percent.jpg)
+![org_mode_percent](https://themarcelor.github.com/blog/assets/img/org_mode_percent.png)
 
 If you create checkboxes with the `-  [  ] ` notation, you can tick these checkboxes with C-c C-c.
 

@@ -28,7 +28,7 @@ C-x f  = file
 
 MOVEMENT
 
-![emacs_mnemonic](https://themarcelor.github.com/blog/assets/img/emacs_mnemonic.jpg)
+![emacs_mnemonic](https://themarcelor.github.com/blog/assets/img/emacs_mnemonic.png)
 
 Exit Emacs
 

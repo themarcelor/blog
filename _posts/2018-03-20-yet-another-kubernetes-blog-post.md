@@ -14,7 +14,7 @@ It’s a Golang-based solution that interacts with an underlying container engin
 
 Now, as always, diagrams for visual learners (with some AWS details we will talk about later in another blog post):
 
-cacoo_kube_aws
+![cacoo_kube_aws](https://themarcelor.github.com/blog/assets/img/cacoo_kube_aws.jpg)
 
 Also known as “k8s”, it offers many features, such as:
 
@@ -42,9 +42,7 @@ The HTTPS communication hops through the Kubernetes overlay network and its “S
 
 If everything is correctly assembled, the following flow is reproduced:
 
-poc_flow.png
-
- 
+![poc_flow](https://themarcelor.github.com/blog/assets/img/poc_flow.png)
 
 To sum it up: Kubernetes will definitely make your life easier if you are trying to deploy a cloud-oriented solution. There are many gotchas and occult tips & tricks, but I will have to find some time to write about them. Hopefully in the next blog post.
 

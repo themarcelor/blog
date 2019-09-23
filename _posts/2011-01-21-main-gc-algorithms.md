@@ -3,9 +3,11 @@ layout: post
 author: Marcelo Costa
 ---
 Main Garbage Collection algorithms
-The Mark & Sweep algorithm
+
+# The Mark & Sweep algorithm
 
 In cases where a huge clean-up is necessary, this algorithm will stop the processor (the event is known as ‘Stop-the-World’ or ‘Full GC’) and verify each reference to check if the objects can be reached, the ones we can’t ae going to be marked and sweeped later. Even though this thing happens in miliseconds (in normal/heatlhy conditions), it should stop everything, otherwise the garbage that was sitting on ‘0x01abcdef’ can, all of a sudden, show up in ‘0x01fedcba’ during the execution of the next bytecode commands.
+
 Here’s a pseudo-code that will illustrate the algorithm:
 
 ```
@@ -25,7 +27,7 @@ If the GC would not able to work this way, things would be really slow compared 
 
 I think it would be better to just keep the good ones and get rid of the rest, based on that idea (and the fact that 90% of the objects created during the execution of any application are generally collected) there is another algorithm that we should get familiarized with.
 
-Generational Copying
+# Generational Copying
 
 This algorithm consist in verifying who survived the last GC (who still holds his reference) and move (copy) to another area, after the surviving object are moved, all that area where they were sitting before is swept away along with the garbage. Isn’t better to take the objects that are going to be used, in a minor population, and throw all the rest away?
 
