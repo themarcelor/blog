@@ -6,9 +6,9 @@ We code stuff.
 
 And, at some point, for some of this stuff, we create documentation.
 
-We do this to explain how the awesome stuff we create works or to provide some guidance to layman on how to use it, sometimes even both pieces of information are provided. People forget stuff, move to different companies, different teams, they die, convert themselves to Orthodox Latvian, for whatever reason, there’s a point where a given piece of technology has to be maintained and extended, and the documentation is one of the pillars of such endeavour.
+We do this to explain how the awesome stuff we create works or to provide some guidance to layman on how to use it. Sometimes even both pieces of information are provided. People forget stuff, move to different companies, different teams, they die or convert themselves to Orthodox Latvian. For whatever reason, there’s a point where a given piece of technology has to be maintained and extended, and the documentation is one of the pillars of such endeavour.
 
-There are many formats for a given documentation:
+There are many formats that can be adopted when it comes to documentation:
 
 Official documentation: Vague, dull and filled with subliminal messages that reinforce the brand around the software’s manufacturer.
 Blog post / Wiki page: Way better. Sometimes hosted internally in some web-based collaboration system, Blogs and Wikis are widely used to document whatever is developed and can be extended through comments the and collaboration of all the team members. Personally, I like Blogs. The informal tone of it makes me enjoy the learning process.
@@ -16,7 +16,7 @@ The code: Behold the pseudo-axiom that states “The code IS the documentation�
 The ticket: Provides full awareness of the timeline of the story / task /defect. If you have some sort of Agile Planning or bug-tracking solution that connects to the actual source-code management system, that is even better. However, it gets polluted really fast with comments, misleading information and attachments (logs, screenshots).
 But of course, there are other ways to document things, some interesting practices might involve recording a presentation followed by a demo, uploading the slide deck, making the video available somewhere. How about a podcast with your fellow programmers? Or perhaps letting the newcomers dig through the code and ask them to produce the documentation as part of their ramp-up process?
 
-The catalyst for this post was an incident that happened a long time ago, in a galaxy far far away. One of the Ops guys followed some instructions on a wiki page to recreate some collections in a SolrCloud environment, the instructions had something similar to this:
+The catalyst for this post was an incident that happened a long time ago, in a galaxy far far away. One of the Ops guys followed some instructions on a wiki page to recreate some collections in a SolrCloud environment, and the instructions had something similar to this:
 
 Once you ssh into the server execute the following command: 
 http://localhost:8983/solr/admin/collections?action=DELETE&name=theCollection
