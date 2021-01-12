@@ -38,7 +38,7 @@ Maybe my interpretation of the latter is a little bit hyperbolic, but this one b
 
 I heard about Hudson (proprietary father of Jenkins) before the “Continuous Integration” revolution, the little DTSTTCPW programs that were being used for Unit Testing arose way before the “Agile Manifesto”, but the methodology only becomes evangelizable when these cool buzzwords start flying around, which is definitely beneficial because the manager likes whatever he reads on trending magazines.
 
-![dilbert](https://themarcelor.github.com/blog/assets/img/dilbert.jpg)
+![dilbert](https://themarcelor.github.com/blog/assets/img/dilbert.gif)
 
 That’s why DevOps is so cool, it gives you an opportunity to play with the new toys and, most important, to fix processes, the road to build and deliver software has so many aspects that present many opportunities to enhance and/or eliminate many things. Now you can finally share your opinions and ideas, you can externalize all your frustration.
 
