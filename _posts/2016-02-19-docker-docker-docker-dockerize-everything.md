@@ -25,7 +25,7 @@ It is magic powered by unicorn blood.
 
 Think of it as a Virtual Machine but, instead of having the Operating System + Hypervisor layers below the application you want to run, it just shares a “sub-context” of the Linux Kernel and allows you to run other Linux’es within the same Linux — Completely separated virtual environments with their own libraries + OS tools + applications + exposed ports, etc. And why is it so cool? You might ask, once you assemble your container with everything you want, you can take a snapshot of that (which is known as a Docker IMAGE) and spin new containers. You can spin multiple instances of a given image, think of it in terms of OOP, where you can create instances out of a class, so you are doing basically the same thing by creating containers out of a Docker image.
 
-![containers_and_vms](https://themarcelor.github.com/blog/assets/img/containers_and_vms.png)
+![containers_and_vms](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/containers_and_vms.png)
 
 Beyond the virtualized, isolated characteristics, it is really time-efficient. There’s no Guest OS to boot here so you can actually start your container in a split second with the software you want, that, according to the actual command you set for it, it will start that process in the foreground for whatever purpose. If it is a web or an application server, it will just come up straight away, ready to service requests.
 
@@ -40,7 +40,7 @@ Don’t forget to start your Docker daemon:
 
 If you are in a Mac OS environment, find the little Docker icon on the top-right corner of your screen:
 
-![docker_running](https://themarcelor.github.com/blog/assets/img/docker_running.png)
+![docker_running](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/docker_running.png)
 
 Then you can start a container and play in a completely isolated / virtualized environment:
 
@@ -129,7 +129,7 @@ nc-server     centos     ff5450d8c273   6 seconds ago    278.8 MB
 
 We can create new images out of base images for different purposes, we can even extend them for specific use cases.
 
-![image_hierarchy](https://themarcelor.github.com/blog/assets/img/image_hierarchy.png)
+![image_hierarchy](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/image_hierarchy.png)
 
 # How to use your own internal Docker registry to store images
 
@@ -182,7 +182,7 @@ Therefore, do not commit containers !!! THAT WAS JUST FOR SHOW! — USE DOCKERFI
 
 Following good automation practices: if you need to apply a number of custom steps to assemble your container, it is a bad idea to spin it and commit it. To solve that problem we use the “Dockerfile”.
 
-![dockerfile_versioning](https://themarcelor.github.com/blog/assets/img/dockerfile_versioning.png)
+![dockerfile_versioning](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/dockerfile_versioning.png)
 
 - Create a “Dockerfile” under your project folder: /home/user/Projects/my-nc-server
 
@@ -246,7 +246,7 @@ e.g., sandbox01 → dockerhost : ens34 :: docker0 :: vethXXX → container : eth
 
 An example of the how the network interfaces connect with each other:
 
-![docker_networking](https://themarcelor.github.com/blog/assets/img/docker_networking.png)
+![docker_networking](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/docker_networking.png)
 
 Be aware that scripts under “/etc/sysconfig/network-scripts” that contain the name of that interface can potentially block this flow, depending on its instructions.
 
