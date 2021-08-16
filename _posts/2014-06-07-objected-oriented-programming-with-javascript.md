@@ -136,7 +136,7 @@ for(var num_toys=0;true;++num_toys) {
 
 In Javascript, we don’t use the `extends` notation to define subclasses, instead we use prototypical inheritance to link objects in a hierarchy (there are other methods to achieve inheritance with Javascript, e.g., `call()` & `apply()` or _object masquerading_, but I prefer this one), in Javascript every object’s constructor has a `prototype` property and, in cool browsers like Firefox and Chrome, you can see a property called __proto__ that is a reference to the `prototype` property of the object’s constructor, Czech this out!
 
-![proto](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/proto.jpg)
+![proto](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/proto.png)
 
 If we link this property to a bunch of key/value pairs, we can inject new properties into an object but if we assign a new object to the prototype property, then the assigned object (Toy) becomes the “parent object” of the owner of the prototype property (instance of Train|Aeroplane), that’s because, when we invoke an object’s method, the Javascript interpreter will search for that method within the object itself, if it can’t find it, it will search for it inside the prototype and it will keep doing that until it finds the method (or just returns undefined), here’s an example:
 
