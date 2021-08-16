@@ -157,7 +157,7 @@ Now let’s move on to our final topic: Encapsulation.
 
 # Encapsulation
 
-![300px-capsule_3](https://themarcelor.github.com/blog/assets/img/300px-capsule_3.png)
+![capsule_3](https://themarcelor.github.com/blog/assets/img/capsule_3.png)
 
 Imagine an application that manages sensitive data from a group of People (e.g., Big Company or a Bank), we can write the following classes to accomplish this objective.
 
