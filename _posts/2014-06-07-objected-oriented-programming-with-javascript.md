@@ -27,7 +27,7 @@ var Beer = function() {
  
 Here’s how you would test the Javascript version  in your browser (Chrome’s Developer Tools or Firefox’s Firebug):
 
-![heineken](https://themarcelor.github.com/blog/assets/img/heineken.jpg)
+![heineken](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/heineken.png)
 
 # Inheritance & Polymorphism
 
@@ -84,13 +84,13 @@ class Aeroplane extends Toy {
 
 Let’s talk about what’s going on there, if you skip the “SantaToys” class and focus on the last 3 classes within this little program: Toy, Train and Aeroplane, you will find an example of inheritance in OOP.
 
-![inheritance](https://themarcelor.github.com/blog/assets/img/inheritance.png)
+![inheritance](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/inheritance.png)
 
 Toy is in a higher level of abstraction and both Train and Aeroplane are specializations of that base class, i.e., Train and Aeroplane are toys (duh). So the cool thing about Inheritance is that it organize the entities involved in a given context and facilitates the coding process.
 
 The subclasses inherit the attributes and methods of the parent class, in this case, both Train and Aeroplane will have their own “counter” attribute and the “increment()” method, which means, the results of the increment method will affect only that specific instance, if we increment the counter for a Train object, that means the integer value within the counter variable will be incremented for this instance only (this is another aspect of OOP languages, they have mechanisms to refer to object instances, usually with keywords like this or self). Even if you call the method from a reference variable defined through an abstract class (Toy), the correct increment method will be determined during runtime, so it’s like having a Toy that can transform itself when some action is invoked, that’s what we call Polymorphism.
 
-![polymorph](https://themarcelor.github.com/blog/assets/img/polymorph.jpg)
+![polymorph](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/polymorph.jpg)
 
 Polymorphism is achieved when you use an abstract reference of an object to invoke some functionality and, as a result of the mapping of the reference variable on the stack and the actual object’s instance in the heap, different methods will be executed. Refer to the toy analogy above if this one is too boring.
 
@@ -136,7 +136,7 @@ for(var num_toys=0;true;++num_toys) {
 
 In Javascript, we don’t use the `extends` notation to define subclasses, instead we use prototypical inheritance to link objects in a hierarchy (there are other methods to achieve inheritance with Javascript, e.g., `call()` & `apply()` or _object masquerading_, but I prefer this one), in Javascript every object’s constructor has a `prototype` property and, in cool browsers like Firefox and Chrome, you can see a property called __proto__ that is a reference to the `prototype` property of the object’s constructor, Czech this out!
 
-![proto](https://themarcelor.github.com/blog/assets/img/proto.jpg)
+![proto](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/proto.jpg)
 
 If we link this property to a bunch of key/value pairs, we can inject new properties into an object but if we assign a new object to the prototype property, then the assigned object (Toy) becomes the “parent object” of the owner of the prototype property (instance of Train|Aeroplane), that’s because, when we invoke an object’s method, the Javascript interpreter will search for that method within the object itself, if it can’t find it, it will search for it inside the prototype and it will keep doing that until it finds the method (or just returns undefined), here’s an example:
 
