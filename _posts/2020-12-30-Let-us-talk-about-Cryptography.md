@@ -52,7 +52,7 @@ As you can see, with this approach, it is a bit harder to "brute-force" the decr
 In a quick glance my research did not show any specific historical information around the origin of such technique. All sources indicate that, just like the other ones, it was elaborated to exchange secret messages between troops during war times. The permutation cipher sets the foundation for other techniques that were utilized to build encryption devices, such as the famous Enigma Machine.
 BTW, if you want to learn more about the history around the Enigma machine and Alan Turing, you must watch "The Imitation Game". Definitely recommended.
 
-![imitation_game](https://themarcelor.github.com/blog/assets/img/Imitation_Game.png)
+![imitation_game](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/Imitation_Game.png)
 
 Anyway, back to the permutation cipher:
 
