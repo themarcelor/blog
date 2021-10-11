@@ -22,7 +22,7 @@ Once you ssh into the server execute the following command:
 http://localhost:8983/solr/admin/collections?action=DELETE&name=theCollection
 The problem is that the Ops guy accidentally logged into a Production server instead of the Staging server he was looking for and, suddenly, all the indexing data from thousands of customers were gone, in the blink of an eye. I’m not exposing the exact command that was executed but, just so you known, we have proper SSL configuration to avoid any misguided interaction with our SolrCloud API, however, the usage of the client certificate is obviously granted to the Operations team.
 
-![localhost](https://themarcelor.github.com/blog/assets/img/localhost.jpg)
+![localhost](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/localhost.jpg)
 
 So, here is the question: Can/Should we blame the documentation? Some might think we should integrate some additional mechanism within the existing security API to avoid such mistakes, or, even easier, we could wrap the command around a bash script that would present some scary ASCII art with skull and bones to let the user know that he is about to run that command against a particular ip address / hostname and this is a sensitive operation, anyway, regardless of the approach, this kind of goes against the “fix the process, not the problem” principle. After we restored the collection from backup, the documentation was adjusted with a placeholder:
 
@@ -41,7 +41,7 @@ Try to put yourself in someone else’s shoes. Yeah, this one can be extremely r
 # 2 – Help the visual learners with some diagrams
 Describe the basic architecture and, perhaps even dive into the components involved in the request flow. For automated operations, another idea is to describe a timeline of events and present the entities involved in the orchestration. Use point #1 as a guidance on which visual elements would be more appropriate for the scenario you are working on.
 
-![pipeline](https://themarcelor.github.com/blog/assets/img/pipeline.jpg)
+![pipeline](https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/pipeline.jpg)
 
 # 3 – Name it, tag it and categorize everything
 The documentation you create is useless unless it can be found. So make sure you put some meaningful name and add some tags to make it easy for your internal collaboration system to index it properly. Group the pages into sections that make sense and advertise your documentation in your next technical update or knowledge sharing session.
