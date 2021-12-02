@@ -23,7 +23,7 @@ Here’s a pseudo-code that will illustrate the algorithm:
 
 If the GC would not able to work this way, things would be really slow compared to what we have today. Let’s put it like this: “if you have a box of oranges, where there are 2 good ones and 98 of them are rotten”, what would be the best option? Identify and move the good ones or the bad ones?
 
-![oranges_box](https://themarcelor.github.com/blog/assets/img/oranges_box.jpg)
+![oranges_box](https://github.com/themarcelor/blog/blob/master/assets/img/oranges_box.jpg?raw=true)
 
 I think it would be better to just keep the good ones and get rid of the rest, based on that idea (and the fact that 90% of the objects created during the execution of any application are generally collected) there is another algorithm that we should get familiarized with.
 
@@ -33,6 +33,6 @@ This algorithm consist in verifying who survived the last GC (who still holds hi
 
 But what is the deal with this name? That is because the heap is divided into ‘generations’, the image below shall be impregnated in your brain for the rest of your life:
 
-![java_mem_parts](https://github.com/themarcelor/blog/blob/master/assets/img/oranges_box.jpg?raw=true)
+![java_mem_parts](https://github.com/themarcelor/blog/blob/master/assets/img/java_mem_parts.jpg?raw=true)
 
 When an object gets created it is going to the Young Generation, within this space the GC activities happen more often, this allows the short-living objects to be collected quickly and free-up memory so the application can seize this heap space to continue its execution. If the object survives the GCs that happened in the Young space, it will eventually be promoted to the Old generation.
