@@ -8,18 +8,18 @@ Oi Pessoal, tudo bem? Starting here the 1º blog post, I’m going to try to cre
 
 # The JVM is Chaotic
 
-The Garbage Collection is not performed immediatly after an object loses its reference, the JVM waits until a few lost objects start to accumulate. Think of it as a Cleaning Lady that is watching TV and, after her boss’s children finished their fun activities on the living room she decides (whenever she wants) to collect the toys, sweep, vacuum the carpet (i.e., GC).
+The Garbage Collection is not performed immediatly after an object loses its reference, the JVM waits until a few lost objects start to accumulate. Think of it as a Cleaning Agent that is watching TV and, after the children finished their fun activities in the living room, that same cleaning agent is supposed to collect the toys, sweep, vacuum the carpet (i.e., GC).
 
-![stack_and_heap](https://themarcelor.github.com/blog/assets/img/stack_and_heap.jpg)
+![stack_and_heap](https://github.com/themarcelor/blog/blob/master/assets/img/stack_and_heap.jpg?raw=true)
 
 Look at the image above, on the left side we have the Stack (where the reference variable is) and on the right side we have the Heap (where the actual object is), if we add the following line of code:
 
 `my_birth = null;`
 
-Our cleaning lady will already know that, at some point in time, she will have to take care of that useless object that was left in ‘0x01abcdef’, we can’t do anything about it, just ask nicely:
+Our cleaning agent will already know that, at some point in time, it is necessary to take care of that useless object that was left in ‘0x01abcdef’. We can’t do anything about it, just ask nicely:
 
 `System.gc();`
 
-In other words, “Hey Consuela, can you please clean that room over there?” (but that will only make her give more attention to that particular region, she will not do anything immediately).
+In other words, “Hey cleaning agent, can you please clean that room over there?” (but that will only make the cleaning agent give more attention to that particular region, it will not be done immediately).
 
 So, how does the GC works? Well, we know that GC will occur on objects that do not have references, so the first algorithm that we should talk about is the “Mark and Sweep”.
