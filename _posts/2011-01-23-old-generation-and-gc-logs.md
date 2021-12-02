@@ -10,7 +10,7 @@ When the Garbage Collection occurs in the Young Generation, we have a minor coll
  
 You see? It is just as simple as this:
 
-![hieroglifo](https://themarcelor.github.com/blog/assets/img/hieroglifo.jpg)
+![hieroglifo](https://github.com/themarcelor/blog/blob/master/assets/img/hieroglifo.jpg?raw=true)
 
 Let’s try to understand what each value means:
 
@@ -33,7 +33,7 @@ _*When in doubt, just read User+Sys._
 
 Isn’t that amazing? Now you can see a log entry like this one and interpret what is going on (to generate these log entries use the following argument: -verbose:gc, or, if you want to see this on a specific file, -Xloggc:file), you can start creating graphics showing what is happening with your JVM in a given moment, like this one:
 
-![minor_gc](https://themarcelor.github.com/blog/assets/img/minor_gc.jpg)
+![minor_gc](https://github.com/themarcelor/blog/blob/master/assets/img/minor_gc.jpg?raw=true)
 
 This way we can confirm that 10 mb of objects were promoted to the Old generation, do you agree?
 
@@ -45,13 +45,13 @@ Here is an example of how the Full GC is represented in the logs:
 
 You can use tools to visualize this kind of activities, for example, the GC Viewer:
 
-![gc_viewer](https://themarcelor.github.com/blog/assets/img/gc_viewer.jpg)
+![gc_viewer](https://github.com/themarcelor/blog/blob/master/assets/img/gc_viewer.jpg?raw=true)
 
 Again, why this is so interesting? Because, with this knowledge, you can solve performance problems and even tune your JVM, the most common issues (that involve memory) are caused by:
 
-Number and size of objects.
-Average lifetime of an object
-Size of the Heap.
+- Number and size of objects.
+- Average lifetime of an object
+- Size of the Heap.
  
 
 That’s it for now. See you on the next post.
