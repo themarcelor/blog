@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Old Generation And Gc Logs | TheMarceloR</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="Old Generation And Gc Logs" />
 <meta name="author" content="Marcelo Costa" />
 <meta property="og:locale" content="en_US" />
@@ -17,9 +17,11 @@
 <meta property="og:url" content="http://localhost:4000/2011/01/23/old-generation-and-gc-logs.html" />
 <meta property="og:site_name" content="TheMarceloR" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2011-01-23T00:00:00+00:00" />
+<meta property="article:published_time" content="2011-01-23T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Old Generation And Gc Logs" />
 <script type="application/ld+json">
-{"description":"Minor Collection e Full GCs","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2011/01/23/old-generation-and-gc-logs.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Old Generation And Gc Logs","dateModified":"2011-01-23T00:00:00+00:00","datePublished":"2011-01-23T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/23/old-generation-and-gc-logs.html"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"url":"http://localhost:4000/2011/01/23/old-generation-and-gc-logs.html","headline":"Old Generation And Gc Logs","dateModified":"2011-01-23T00:00:00-06:00","datePublished":"2011-01-23T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/23/old-generation-and-gc-logs.html"},"author":{"@type":"Person","name":"Marcelo Costa"},"description":"Minor Collection e Full GCs","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=">
@@ -68,7 +70,7 @@
 
 <p>You see? It is just as simple as this:</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/hieroglifo.jpg" alt="hieroglifo" /></p>
+<p><img src="https://github.com/themarcelor/blog/blob/master/assets/img/hieroglifo.jpg?raw=true" alt="hieroglifo" /></p>
 
 <p>Let’s try to understand what each value means:</p>
 
@@ -117,24 +119,26 @@
 
 <p>Isn’t that amazing? Now you can see a log entry like this one and interpret what is going on (to generate these log entries use the following argument: -verbose:gc, or, if you want to see this on a specific file, -Xloggc:file), you can start creating graphics showing what is happening with your JVM in a given moment, like this one:</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/minor_gc.jpg" alt="minor_gc" /></p>
+<p><img src="https://github.com/themarcelor/blog/blob/master/assets/img/minor_gc.jpg?raw=true" alt="minor_gc" /></p>
 
 <p>This way we can confirm that 10 mb of objects were promoted to the Old generation, do you agree?</p>
 
 <p>Here is an example of how the Full GC is represented in the logs:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>17684.691: [Full GC [PSYoungGen: 175417K-&gt;0K(1228096K)] [ParOldGen: 2715481K-&gt;2019446K(2807168K)] 2890899K-&gt;2019446K(4035264K) [PSPermGen: 118571K-&gt;118548K(163840K)], 6.1196070 secs] [Times: user=11.34 sys=0.02, real=6.12 secs]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>17684.691: [Full GC [PSYoungGen: 175417K-&gt;0K(1228096K)] [ParOldGen: 2715481K-&gt;2019446K(2807168K)] 2890899K-&gt;2019446K(4035264K) [PSPermGen: 118571K-&gt;118548K(163840K)], 6.1196070 secs] [Times: user=11.34 sys=0.02, real=6.12 secs]
 </code></pre></div></div>
 
 <p>You can use tools to visualize this kind of activities, for example, the GC Viewer:</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/gc_viewer.jpg" alt="gc_viewer" /></p>
+<p><img src="https://github.com/themarcelor/blog/blob/master/assets/img/gc_viewer.jpg?raw=true" alt="gc_viewer" /></p>
 
 <p>Again, why this is so interesting? Because, with this knowledge, you can solve performance problems and even tune your JVM, the most common issues (that involve memory) are caused by:</p>
 
-<p>Number and size of objects.
-Average lifetime of an object
-Size of the Heap.</p>
+<ul>
+  <li>Number and size of objects.</li>
+  <li>Average lifetime of an object</li>
+  <li>Size of the Heap.</li>
+</ul>
 
 <p>That’s it for now. See you on the next post.</p>
 

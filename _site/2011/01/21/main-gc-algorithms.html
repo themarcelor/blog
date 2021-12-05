@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Main Gc Algorithms | TheMarceloR</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="Main Gc Algorithms" />
 <meta name="author" content="Marcelo Costa" />
 <meta property="og:locale" content="en_US" />
@@ -17,9 +17,11 @@
 <meta property="og:url" content="http://localhost:4000/2011/01/21/main-gc-algorithms.html" />
 <meta property="og:site_name" content="TheMarceloR" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2011-01-21T00:00:00+00:00" />
+<meta property="article:published_time" content="2011-01-21T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Main Gc Algorithms" />
 <script type="application/ld+json">
-{"description":"Main Garbage Collection algorithms","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2011/01/21/main-gc-algorithms.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Main Gc Algorithms","dateModified":"2011-01-21T00:00:00+00:00","datePublished":"2011-01-21T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/21/main-gc-algorithms.html"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"url":"http://localhost:4000/2011/01/21/main-gc-algorithms.html","headline":"Main Gc Algorithms","dateModified":"2011-01-21T00:00:00-06:00","datePublished":"2011-01-21T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2011/01/21/main-gc-algorithms.html"},"author":{"@type":"Person","name":"Marcelo Costa"},"description":"Main Garbage Collection algorithms","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=">
@@ -68,7 +70,7 @@
 
 <p>Here’s a pseudo-code that will illustrate the algorithm:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1	Mark:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1	Mark:
 2	    add each object in the root set to a queue
 3	        for each object x in the queue
 4	            mark x reachable
@@ -78,9 +80,9 @@
 8	        if the object x is not marked, garbage collect it
 </code></pre></div></div>
 
-<p>If the GC would not able to work this way, things would be really slow compared to what we have today. Let’s put it like this: “if you have a box of oranges, where there are 2 good ones and 98 of them are rotten”, what would be the best option? Identify and remove the good ones or the bad ones?</p>
+<p>If the GC would not able to work this way, things would be really slow compared to what we have today. Let’s put it like this: “if you have a box of oranges, where there are 2 good ones and 98 of them are rotten”, what would be the best option? Identify and move the good ones or the bad ones?</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/oranges_box.jpg" alt="oranges_box" /></p>
+<p><img src="https://github.com/themarcelor/blog/blob/master/assets/img/oranges_box.jpg?raw=true" alt="oranges_box" /></p>
 
 <p>I think it would be better to just keep the good ones and get rid of the rest, based on that idea (and the fact that 90% of the objects created during the execution of any application are generally collected) there is another algorithm that we should get familiarized with.</p>
 
@@ -90,9 +92,9 @@
 
 <p>But what is the deal with this name? That is because the heap is divided into ‘generations’, the image below shall be impregnated in your brain for the rest of your life:</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/java_mem_parts.jpg" alt="java_mem_parts" /></p>
+<p><img src="https://github.com/themarcelor/blog/blob/master/assets/img/java_mem_parts.jpg?raw=true" alt="java_mem_parts" /></p>
 
-<p>When an object gets created it is going to the Young Generation, within this space the GC activities happen more often, this allows the short-life objects to be collected more quickly and free-up memory so the application can seize this heap space to continue its execution. If the object survives the GCs that happened on the Young space he will eventually be promoted to the Old generation.</p>
+<p>When an object gets created it is going to the Young Generation, within this space the GC activities happen more often, this allows the short-living objects to be collected quickly and free-up memory so the application can seize this heap space to continue its execution. If the object survives the GCs that happened in the Young space, it will eventually be promoted to the Old generation.</p>
 
       
 

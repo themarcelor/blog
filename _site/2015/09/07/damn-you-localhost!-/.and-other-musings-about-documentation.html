@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Damn You Localhost! &#8230;and Other Musings About Documentation | TheMarceloR</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="Damn You Localhost! &#8230;and Other Musings About Documentation" />
 <meta name="author" content="Marcelo Costa" />
 <meta property="og:locale" content="en_US" />
@@ -17,9 +17,11 @@
 <meta property="og:url" content="http://localhost:4000/2015/09/07/damn-you-localhost!-/.and-other-musings-about-documentation.html" />
 <meta property="og:site_name" content="TheMarceloR" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2015-09-07T00:00:00+01:00" />
+<meta property="article:published_time" content="2015-09-07T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Damn You Localhost! &#8230;and Other Musings About Documentation" />
 <script type="application/ld+json">
-{"description":"We code stuff.","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2015/09/07/damn-you-localhost!-/.and-other-musings-about-documentation.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Damn You Localhost! &#8230;and Other Musings About Documentation","dateModified":"2015-09-07T00:00:00+01:00","datePublished":"2015-09-07T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2015/09/07/damn-you-localhost!-/.and-other-musings-about-documentation.html"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"url":"http://localhost:4000/2015/09/07/damn-you-localhost!-/.and-other-musings-about-documentation.html","headline":"Damn You Localhost! &#8230;and Other Musings About Documentation","dateModified":"2015-09-07T00:00:00-05:00","datePublished":"2015-09-07T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2015/09/07/damn-you-localhost!-/.and-other-musings-about-documentation.html"},"author":{"@type":"Person","name":"Marcelo Costa"},"description":"We code stuff.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=">
@@ -64,9 +66,9 @@
 
 <p>And, at some point, for some of this stuff, we create documentation.</p>
 
-<p>We do this to explain how the awesome stuff we create works or to provide some guidance to layman on how to use it, sometimes even both pieces of information are provided. People forget stuff, move to different companies, different teams, they die, convert themselves to Orthodox Latvian, for whatever reason, there’s a point where a given piece of technology has to be maintained and extended, and the documentation is one of the pillars of such endeavour.</p>
+<p>We do this to explain how the awesome stuff we create works or to provide some guidance to layman on how to use it. Sometimes even both pieces of information are provided. People forget stuff, move to different companies, different teams, they die or convert themselves to Orthodox Latvian. For whatever reason, there’s a point where a given piece of technology has to be maintained and extended, and the documentation is one of the pillars of such endeavour.</p>
 
-<p>There are many formats for a given documentation:</p>
+<p>There are many formats that can be adopted when it comes to documentation:</p>
 
 <p>Official documentation: Vague, dull and filled with subliminal messages that reinforce the brand around the software’s manufacturer.
 Blog post / Wiki page: Way better. Sometimes hosted internally in some web-based collaboration system, Blogs and Wikis are widely used to document whatever is developed and can be extended through comments the and collaboration of all the team members. Personally, I like Blogs. The informal tone of it makes me enjoy the learning process.
@@ -74,13 +76,13 @@ The code: Behold the pseudo-axiom that states “The code IS the documentation�
 The ticket: Provides full awareness of the timeline of the story / task /defect. If you have some sort of Agile Planning or bug-tracking solution that connects to the actual source-code management system, that is even better. However, it gets polluted really fast with comments, misleading information and attachments (logs, screenshots).
 But of course, there are other ways to document things, some interesting practices might involve recording a presentation followed by a demo, uploading the slide deck, making the video available somewhere. How about a podcast with your fellow programmers? Or perhaps letting the newcomers dig through the code and ask them to produce the documentation as part of their ramp-up process?</p>
 
-<p>The catalyst for this post was an incident that happened a long time ago, in a galaxy far far away. One of the Ops guys followed some instructions on a wiki page to recreate some collections in a SolrCloud environment, the instructions had something similar to this:</p>
+<p>The catalyst for this post was an incident that happened a long time ago, in a galaxy far far away. One of the Ops guys followed some instructions on a wiki page to recreate some collections in a SolrCloud environment, and the instructions had something similar to this:</p>
 
 <p>Once you ssh into the server execute the following command: 
 http://localhost:8983/solr/admin/collections?action=DELETE&amp;name=theCollection
 The problem is that the Ops guy accidentally logged into a Production server instead of the Staging server he was looking for and, suddenly, all the indexing data from thousands of customers were gone, in the blink of an eye. I’m not exposing the exact command that was executed but, just so you known, we have proper SSL configuration to avoid any misguided interaction with our SolrCloud API, however, the usage of the client certificate is obviously granted to the Operations team.</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/localhost.jpg" alt="localhost" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/localhost.jpg" alt="localhost" /></p>
 
 <p>So, here is the question: Can/Should we blame the documentation? Some might think we should integrate some additional mechanism within the existing security API to avoid such mistakes, or, even easier, we could wrap the command around a bash script that would present some scary ASCII art with skull and bones to let the user know that he is about to run that command against a particular ip address / hostname and this is a sensitive operation, anyway, regardless of the approach, this kind of goes against the “fix the process, not the problem” principle. After we restored the collection from backup, the documentation was adjusted with a placeholder:</p>
 
@@ -101,7 +103,7 @@ The problem is that the Ops guy accidentally logged into a Production server ins
 <h1 id="2--help-the-visual-learners-with-some-diagrams">2 – Help the visual learners with some diagrams</h1>
 <p>Describe the basic architecture and, perhaps even dive into the components involved in the request flow. For automated operations, another idea is to describe a timeline of events and present the entities involved in the orchestration. Use point #1 as a guidance on which visual elements would be more appropriate for the scenario you are working on.</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/pipeline.jpg" alt="pipeline" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/pipeline.jpg" alt="pipeline" /></p>
 
 <h1 id="3--name-it-tag-it-and-categorize-everything">3 – Name it, tag it and categorize everything</h1>
 <p>The documentation you create is useless unless it can be found. So make sure you put some meaningful name and add some tags to make it easy for your internal collaboration system to index it properly. Group the pages into sections that make sense and advertise your documentation in your next technical update or knowledge sharing session.</p>

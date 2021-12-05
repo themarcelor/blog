@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Code Walkthrough Online Kanban Board With Nashorn | TheMarceloR</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="Code Walkthrough Online Kanban Board With Nashorn" />
 <meta name="author" content="Marcelo Costa" />
 <meta property="og:locale" content="en_US" />
@@ -17,9 +17,11 @@
 <meta property="og:url" content="http://localhost:4000/2013/08/24/Code-walkthrough-online-kanban-board-with-nashorn.html" />
 <meta property="og:site_name" content="TheMarceloR" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2013-08-24T00:00:00+01:00" />
+<meta property="article:published_time" content="2013-08-24T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Code Walkthrough Online Kanban Board With Nashorn" />
 <script type="application/ld+json">
-{"description":"This week I present to you a quick Code Walkthrough on my latest invention: The Online Kanban Board","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2013/08/24/Code-walkthrough-online-kanban-board-with-nashorn.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Code Walkthrough Online Kanban Board With Nashorn","dateModified":"2013-08-24T00:00:00+01:00","datePublished":"2013-08-24T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2013/08/24/Code-walkthrough-online-kanban-board-with-nashorn.html"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"url":"http://localhost:4000/2013/08/24/Code-walkthrough-online-kanban-board-with-nashorn.html","headline":"Code Walkthrough Online Kanban Board With Nashorn","dateModified":"2013-08-24T00:00:00-05:00","datePublished":"2013-08-24T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2013/08/24/Code-walkthrough-online-kanban-board-with-nashorn.html"},"author":{"@type":"Person","name":"Marcelo Costa"},"description":"This week I present to you a quick Code Walkthrough on my latest invention: The Online Kanban Board","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=">
@@ -183,7 +185,7 @@
 <span class="k">try</span> <span class="p">{</span>
     <span class="nx">mongoDAO</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
 <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-    <span class="nx">print</span><span class="p">(</span><span class="err">‘</span><span class="nb">Error</span> <span class="k">while</span> <span class="nx">deleting</span> <span class="nx">the</span> <span class="nx">object</span> <span class="k">from</span> <span class="na">Mongo</span><span class="p">:</span> <span class="err">‘</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">printStackTrace</span><span class="p">());</span>
+    <span class="nx">print</span><span class="p">(</span><span class="err">‘</span><span class="nb">Error</span> <span class="k">while</span> <span class="nx">deleting</span> <span class="nx">the</span> <span class="nx">object</span> <span class="k">from</span> <span class="nx">Mongo</span><span class="p">:</span> <span class="err">‘</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">printStackTrace</span><span class="p">());</span>
 <span class="p">}</span>
 <span class="k">return</span> <span class="nx">generateResponse</span><span class="p">(</span><span class="nx">mongoDAO</span><span class="p">.</span><span class="nx">readAll</span><span class="p">());</span>
     <span class="p">}</span>
@@ -192,7 +194,7 @@
 <span class="k">try</span> <span class="p">{</span>
     <span class="nx">mongoDAO</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
 <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-    <span class="nx">print</span><span class="p">(</span><span class="err">‘</span><span class="nb">Error</span> <span class="k">while</span> <span class="nx">saving</span> <span class="nx">the</span> <span class="nx">object</span> <span class="nx">into</span> <span class="na">Mongo</span><span class="p">:</span> <span class="err">‘</span> <span class="o">+</span> <span class="nx">e</span><span class="p">);</span>
+    <span class="nx">print</span><span class="p">(</span><span class="err">‘</span><span class="nb">Error</span> <span class="k">while</span> <span class="nx">saving</span> <span class="nx">the</span> <span class="nx">object</span> <span class="nx">into</span> <span class="nx">Mongo</span><span class="p">:</span> <span class="err">‘</span> <span class="o">+</span> <span class="nx">e</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="k">return</span> <span class="nx">generateResponse</span><span class="p">(</span><span class="nx">mongoDAO</span><span class="p">.</span><span class="nx">readAll</span><span class="p">());</span>
     <span class="p">}</span>
@@ -316,15 +318,15 @@
 
 <p>That’s it. if you want to try it out just download the code from github, install MongoDB in your machine, start the database server (just run ‘mongod’, you might need to specify where the files will be stored, in this case use the –dbpath parameter, e.g., ‘mongod –dbpath /var/db/data’) and finally (assuming you have the JDK8 or the OpenJDK built in your machine with Nashorn) start the HTTP Server to see your Kanban board implemented with Nashorn, here’s the command:</p>
 
-<p><code class="highlighter-rouge">$ jjs -cp lib/mongo-2.10.1.jar:. httpsrv.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ jjs -cp lib/mongo-2.10.1.jar:. httpsrv.js</code></p>
 
 <p><em>*Don’t forget to create some shortcuts to your JJS (Nashorn interpreter):</em></p>
 
-<p>Mac OS = <code class="highlighter-rouge">alias jjs=’/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/bin/jjs’</code></p>
+<p>Mac OS = <code class="language-plaintext highlighter-rouge">alias jjs=’/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/bin/jjs’</code></p>
 
 <p>Windows  = Define an environment variable called ‘JAVA8_HOME’ and point to your jdk8 folder, then you can invoke jjs by running this command:</p>
 
-<p><code class="highlighter-rouge">“%JAVA8_HOME%\jre\bin\jjs” -cp lib\mongo-2.10.1.jar;. httpsrv.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">“%JAVA8_HOME%\jre\bin\jjs” -cp lib\mongo-2.10.1.jar;. httpsrv.js</code></p>
 
 <p>I hope you’ve enjoyed it, if you are a Javascript expert and identified any atrocities in my code, please PLEASE share your knowledge on the comments session below.</p>
 

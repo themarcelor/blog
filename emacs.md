@@ -17,8 +17,10 @@ Add the following lines to your “~/.emacs.d/init.el” file:
 ```
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-*More about Emacs package management in this post from a Bulgarian dude.
 ```
+_*More about Emacs package management in this post from a Bulgarian dude._
+https://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/
+
 
 #Start Emac
 
@@ -35,7 +37,7 @@ C-x f  = file
 
 # MOVEMENT
 
-![emacs_mnemonic](https://themarcelor.github.com/blog/assets/img/emacs_mnemonic.png)
+![emacs_mnemonic](https://github.com/themarcelor/blog/blob/master/assets/img/emacs_mnemonic.png?raw=true)
 
 # Exit Emacs
 
@@ -181,7 +183,7 @@ C-h m = Manual. Presents an instructions manual with all the key bindings associ
 
 M-x flyspell-mode = This will enable a real-time spell checking mechanism, it’s one of the “Minor Modes” that are shipped OOTB with Emacs. Once you enable it, the words will turn red if they are misspelled. In order to check the suggestions press M-$ and the options should show up at the top of the screen.
 
-![spell-check](https://themarcelor.github.com/blog/assets/img/spell-check.jpg)
+![spell-check](https://github.com/themarcelor/blog/blob/master/assets/img/spell-check.jpg?raw=true)
 
 # Version Control: Emacs & GIT
 
@@ -235,7 +237,7 @@ In this post we will cover how to:
 
 Start by playing with a sample todo list. Just add an item with an asterisk (*) and you can hold ​`​alt` and press ENTER to add a new item under the same column. If you wish promote or demote that item you can hold `alt` and use the arrow keys to add or remove asterisks (shifting between columns).
 
-![org_mode_basic](https://themarcelor.github.com/blog/assets/img/org_mode_basic.png)
+![org_mode_basic](https://github.com/themarcelor/blog/blob/master/assets/img/org_mode_basic.png?raw=true)
 
 ## Here are some useful commands:
 
@@ -248,9 +250,9 @@ M – x org-sort-entries to organize the list in [alphabetic, numeric, creation-
 
 # Track the progress of your tasks
 
-Put a [ 0 % ] next to the first item at the top of the list and it will be automatically updated as you mark “TODO” items as “DONE”.
+Type [ 0 % ] next to the first item at the top of the list and it will be automatically updated as you mark “TODO” items as “DONE”.
 
-![org_mode_percent](https://themarcelor.github.com/blog/assets/img/org_mode_percent.png)
+![org_mode_percent](https://github.com/themarcelor/blog/blob/master/assets/img/org_mode_percent.png?raw=true)
 
 If you create checkboxes with the `-  [  ] ` notation, you can tick these checkboxes with C-c C-c.
 
@@ -260,7 +262,7 @@ C-c [   adds file to the front of the agenda file list.
 
 C-c C-s    schedule
 
-![org_mode_scheduling](https://themarcelor.github.com/blog/assets/img/org_mode_scheduling.png)
+![org_mode_scheduling](https://github.com/themarcelor/blog/blob/master/assets/img/org_mode_scheduling.png?raw=true)
 
 C-c C-d    deadline
 
@@ -271,7 +273,7 @@ M-x org-agenda
 
 Under ” a ” (All tasks for the current week)
 
-![org_mode_agenda](https://themarcelor.github.com/blog/assets/img/org_mode_agenda.png)
+![org_mode_agenda](https://github.com/themarcelor/blog/blob/master/assets/img/org_mode_agenda.png?raw=true)
 
 Press ” f ” (forward) to go to the next week.
 

@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Objected Oriented Programming With Javascript | TheMarceloR</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="Objected Oriented Programming With Javascript" />
 <meta name="author" content="Marcelo Costa" />
 <meta property="og:locale" content="en_US" />
@@ -17,9 +17,11 @@
 <meta property="og:url" content="http://localhost:4000/2014/06/07/objected-oriented-programming-with-javascript.html" />
 <meta property="og:site_name" content="TheMarceloR" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2014-06-07T00:00:00+01:00" />
+<meta property="article:published_time" content="2014-06-07T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Objected Oriented Programming With Javascript" />
 <script type="application/ld+json">
-{"description":"Inheritance, Polymorphism and Encapsulation","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2014/06/07/objected-oriented-programming-with-javascript.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Objected Oriented Programming With Javascript","dateModified":"2014-06-07T00:00:00+01:00","datePublished":"2014-06-07T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2014/06/07/objected-oriented-programming-with-javascript.html"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"url":"http://localhost:4000/2014/06/07/objected-oriented-programming-with-javascript.html","headline":"Objected Oriented Programming With Javascript","dateModified":"2014-06-07T00:00:00-05:00","datePublished":"2014-06-07T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2014/06/07/objected-oriented-programming-with-javascript.html"},"author":{"@type":"Person","name":"Marcelo Costa"},"description":"Inheritance, Polymorphism and Encapsulation","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=">
@@ -83,7 +85,7 @@
 
 <p>Here’s how you would test the Javascript version  in your browser (Chrome’s Developer Tools or Firefox’s Firebug):</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/heineken.jpg" alt="heineken" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/heineken.png" alt="heineken" /></p>
 
 <h1 id="inheritance--polymorphism">Inheritance &amp; Polymorphism</h1>
 
@@ -136,13 +138,13 @@
 
 <p>Let’s talk about what’s going on there, if you skip the “SantaToys” class and focus on the last 3 classes within this little program: Toy, Train and Aeroplane, you will find an example of inheritance in OOP.</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/inheritance.png" alt="inheritance" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/inheritance.png" alt="inheritance" /></p>
 
 <p>Toy is in a higher level of abstraction and both Train and Aeroplane are specializations of that base class, i.e., Train and Aeroplane are toys (duh). So the cool thing about Inheritance is that it organize the entities involved in a given context and facilitates the coding process.</p>
 
 <p>The subclasses inherit the attributes and methods of the parent class, in this case, both Train and Aeroplane will have their own “counter” attribute and the “increment()” method, which means, the results of the increment method will affect only that specific instance, if we increment the counter for a Train object, that means the integer value within the counter variable will be incremented for this instance only (this is another aspect of OOP languages, they have mechanisms to refer to object instances, usually with keywords like this or self). Even if you call the method from a reference variable defined through an abstract class (Toy), the correct increment method will be determined during runtime, so it’s like having a Toy that can transform itself when some action is invoked, that’s what we call Polymorphism.</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/polymorph.jpg" alt="polymorph" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/polymorph.jpg" alt="polymorph" /></p>
 
 <p>Polymorphism is achieved when you use an abstract reference of an object to invoke some functionality and, as a result of the mapping of the reference variable on the stack and the actual object’s instance in the heap, different methods will be executed. Refer to the toy analogy above if this one is too boring.</p>
 
@@ -185,9 +187,9 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>In Javascript, we don’t use the <code class="highlighter-rouge">extends</code> notation to define subclasses, instead we use prototypical inheritance to link objects in a hierarchy (there are other methods to achieve inheritance with Javascript, e.g., <code class="highlighter-rouge">call()</code> &amp; <code class="highlighter-rouge">apply()</code> or <em>object masquerading</em>, but I prefer this one), in Javascript every object’s constructor has a <code class="highlighter-rouge">prototype</code> property and, in cool browsers like Firefox and Chrome, you can see a property called <strong>proto</strong> that is a reference to the <code class="highlighter-rouge">prototype</code> property of the object’s constructor, Czech this out!</p>
+<p>In Javascript, we don’t use the <code class="language-plaintext highlighter-rouge">extends</code> notation to define subclasses, instead we use prototypical inheritance to link objects in a hierarchy (there are other methods to achieve inheritance with Javascript, e.g., <code class="language-plaintext highlighter-rouge">call()</code> &amp; <code class="language-plaintext highlighter-rouge">apply()</code> or <em>object masquerading</em>, but I prefer this one), in Javascript every object’s constructor has a <code class="language-plaintext highlighter-rouge">prototype</code> property and, in cool browsers like Firefox and Chrome, you can see a property called <strong>proto</strong> that is a reference to the <code class="language-plaintext highlighter-rouge">prototype</code> property of the object’s constructor, Czech this out!</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/proto.jpg" alt="proto" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/proto.png" alt="proto" /></p>
 
 <table>
   <tbody>
@@ -198,7 +200,7 @@
   </tbody>
 </table>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Toy.prototype
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Toy.prototype
 Object {}
 Toy.prototype.newFunction = function() { return "meh"; }
 function () { return "meh"; }
@@ -214,7 +216,7 @@ train.newFunction()
 
 <h1 id="encapsulation">Encapsulation</h1>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/300px-capsule_3.png" alt="300px-capsule_3" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/capsule_3.png" alt="capsule_3" /></p>
 
 <p>Imagine an application that manages sensitive data from a group of People (e.g., Big Company or a Bank), we can write the following classes to accomplish this objective.</p>
 
@@ -238,11 +240,11 @@ train.newFunction()
 
 <p>In this code we create a class called “CarbonBasedLifeform” and we created an instance, Joe Bloggs, now imagine that some other programmer is adding more stuff to the program and they start messing around with some of this data, what if they change Joe’s Social Security Number? Or even his name? We don’t have anything to protect the access to the attributes of the class, so it can be easily done:</p>
 
-<p><code class="highlighter-rouge">joeBloggs.SSN = "0987654321";</code></p>
+<p><code class="language-plaintext highlighter-rouge">joeBloggs.SSN = "0987654321";</code></p>
 
 <p>If people could just modify each other’s documents and alter personal data like that, what an odd, disturbing world that would be. Joe is the only one that can go through the bureaucratic loops to get a new documents, this stuff is private, that’s why it is a common practice to add modifiers to the class attributes along with special methods to control the access to their values, i.e., the Getters &amp; Setters:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CarbonBasedLifeform {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CarbonBasedLifeform {
     private String name;
     private String SSN;
     
@@ -271,11 +273,11 @@ train.newFunction()
 
 <p>In this example, the value will only be modified after Joe verifies the red tape involving his Social Security Number:</p>
 
-<p><code class="highlighter-rouge">joeBloggs.setSSN("0987654321");</code></p>
+<p><code class="language-plaintext highlighter-rouge">joeBloggs.setSSN("0987654321");</code></p>
 
 <p>BTW, C# offers an interesting approach to write the same in a less verbose way.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>private string name;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>private string name;
 public string Name
 {
     set { this.name = value; }
@@ -285,7 +287,7 @@ public string Name
 
 <p>With Javascript, things are not so simple because, as Douglas Crockford described: “objects are collections of name-value pairs”, so we can dynamically define any property to any object any time we want, one approach that can be used to hide the value of a variable is to use Closures:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var Person = (function () {  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var Person = (function () {  
     var SSN = "";
     
     function Person(name, SSN) {
@@ -314,7 +316,7 @@ public string Name
 
 <p>When the object is instantiated, it executes the IEF (Immediately-Executed Function) and returns the inner “Person” function that holds a special reference to the variable SSN in the outer function (i.e., closure), this variable can only be accessed by the public methods within the object that is returned, so it simulates the behaviour demonstrated in the Java class.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var p = new Person("Marcelo","444");h 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var p = new Person("Marcelo","444");h 
 Check red tape here 
 undefined
 var p2 = new Person("Joe","777");

@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Docker Docker Docker Dockerize Everything | TheMarceloR</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="Docker Docker Docker Dockerize Everything" />
 <meta name="author" content="Marcelo Costa" />
 <meta property="og:locale" content="en_US" />
@@ -17,9 +17,11 @@
 <meta property="og:url" content="http://localhost:4000/2016/02/19/docker-docker-docker-dockerize-everything.html" />
 <meta property="og:site_name" content="TheMarceloR" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-02-19T00:00:00+00:00" />
+<meta property="article:published_time" content="2016-02-19T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Docker Docker Docker Dockerize Everything" />
 <script type="application/ld+json">
-{"description":"What is Docker? It is magic powered by unicorn blood.","author":{"@type":"Person","name":"Marcelo Costa"},"@type":"BlogPosting","url":"http://localhost:4000/2016/02/19/docker-docker-docker-dockerize-everything.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"headline":"Docker Docker Docker Dockerize Everything","dateModified":"2016-02-19T00:00:00+00:00","datePublished":"2016-02-19T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2016/02/19/docker-docker-docker-dockerize-everything.html"},"@context":"https://schema.org"}</script>
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"},"name":"Marcelo Costa"},"url":"http://localhost:4000/2016/02/19/docker-docker-docker-dockerize-everything.html","headline":"Docker Docker Docker Dockerize Everything","dateModified":"2016-02-19T00:00:00-06:00","datePublished":"2016-02-19T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2016/02/19/docker-docker-docker-dockerize-everything.html"},"author":{"@type":"Person","name":"Marcelo Costa"},"description":"What is Docker? It is magic powered by unicorn blood.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=">
@@ -85,7 +87,7 @@
 
 <p>Think of it as a Virtual Machine but, instead of having the Operating System + Hypervisor layers below the application you want to run, it just shares a “sub-context” of the Linux Kernel and allows you to run other Linux’es within the same Linux — Completely separated virtual environments with their own libraries + OS tools + applications + exposed ports, etc. And why is it so cool? You might ask, once you assemble your container with everything you want, you can take a snapshot of that (which is known as a Docker IMAGE) and spin new containers. You can spin multiple instances of a given image, think of it in terms of OOP, where you can create instances out of a class, so you are doing basically the same thing by creating containers out of a Docker image.</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/containers_and_vms.png" alt="containers_and_vms" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/containers_and_vms.png" alt="containers_and_vms" /></p>
 
 <p>Beyond the virtualized, isolated characteristics, it is really time-efficient. There’s no Guest OS to boot here so you can actually start your container in a split second with the software you want, that, according to the actual command you set for it, it will start that process in the foreground for whatever purpose. If it is a web or an application server, it will just come up straight away, ready to service requests.</p>
 
@@ -100,11 +102,11 @@ https://docs.docker.com/engine/installation/</p>
 
 <p>If you are in a Mac OS environment, find the little Docker icon on the top-right corner of your screen:</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/docker_running.png" alt="docker_running" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/docker_running.png" alt="docker_running" /></p>
 
 <p>Then you can start a container and play in a completely isolated / virtualized environment:</p>
 
-<p><code class="highlighter-rouge"># docker run -it –name mycontainer centos /bin/sh</code></p>
+<p><code class="language-plaintext highlighter-rouge"># docker run -it –name mycontainer centos /bin/sh</code></p>
 
 <p>Quick review of the docker run syntax:</p>
 
@@ -206,17 +208,17 @@ https://docs.docker.com/engine/installation/</p>
 
 <p>Here is a slightly more complex example (running a local project just to illustrate):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker run -d –name mykanban -h mykanbanapp –link mydbcontainer -p 8080:8080 -w /opt/mykanban -v /home/marcelo/Projects/MyOnlineKanban/mykanban:/opt/mykanban java:8 /usr/bin/jjs – cp lib/mongo-2.10.1.jar httpsrv.js
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker run -d –name mykanban -h mykanbanapp –link mydbcontainer -p 8080:8080 -w /opt/mykanban -v /home/marcelo/Projects/MyOnlineKanban/mykanban:/opt/mykanban java:8 /usr/bin/jjs – cp lib/mongo-2.10.1.jar httpsrv.js
 </code></pre></div></div>
 
 <h1 id="more-about-docker-images">More about Docker images</h1>
 <p>So, let’s say I want to create my image with a “netcat” pre-installed. I would need to run:</p>
 
-<p><code class="highlighter-rouge"># docker run -it –name my-docker-name centos /bin/sh</code></p>
+<p><code class="language-plaintext highlighter-rouge"># docker run -it –name my-docker-name centos /bin/sh</code></p>
 
 <p>If that is the first time you are trying to spin a container out of the “centos” image, the Docker daemon will go to Docker Hub and get that image for you:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unable to find image ‘centos:latest’ locally
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unable to find image ‘centos:latest’ locally
 latest: Pulling from library/centos
 a3ed95caeb02: Pull complete
 Digest: sha256:1a62cd7c773dd5c6cf08e2e28596f6fcc99bd97e38c9b324163e0da90ed27562
@@ -225,19 +227,19 @@ Status: Downloaded newer image for centos:latest
 
 <p>Then you can install what you need:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum install nc
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum install nc
 
 Installed: nc.x86_64 2:6.40-7.el7 Complete!
 </code></pre></div></div>
 
 <p>How to return to the host-machine without killing my container?
-If you entered a container with <code class="highlighter-rouge">docker exec</code> you can just type <code class="highlighter-rouge">exit</code> to leave the container. However, if you started a container with <code class="highlighter-rouge">docker run</code> then you should use the following shortcut:</p>
+If you entered a container with <code class="language-plaintext highlighter-rouge">docker exec</code> you can just type <code class="language-plaintext highlighter-rouge">exit</code> to leave the container. However, if you started a container with <code class="language-plaintext highlighter-rouge">docker run</code> then you should use the following shortcut:</p>
 
-<p><code class="highlighter-rouge">ctrl+p ctrl+q</code></p>
+<p><code class="language-plaintext highlighter-rouge">ctrl+p ctrl+q</code></p>
 
 <p>And now you can see that your container is still running (because you started it with a perpetual shell terminal process: /bin/sh):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker ps -n 1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker ps -n 1
 
 CONTAINER ID PORTS IMAGE COMMAND NAMES
 
@@ -250,7 +252,7 @@ sha256:ff5450d8c2733cd1edc68e9eda344b2a4f53e297a449e713bfb3cd72a9ddfa9e
 
 <p>Then it becomes part of the images available in this Docker Host server:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker images
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker images
 
 REPOSITORY    IMAGE      ID             CREATED          SIZE
 nc-server     centos     ff5450d8c273   6 seconds ago    278.8 MB
@@ -258,7 +260,7 @@ nc-server     centos     ff5450d8c273   6 seconds ago    278.8 MB
 
 <p>We can create new images out of base images for different purposes, we can even extend them for specific use cases.</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/image_hierarchy.png" alt="image_hierarchy" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/image_hierarchy.png" alt="image_hierarchy" /></p>
 
 <h1 id="how-to-use-your-own-internal-docker-registry-to-store-images">How to use your own internal Docker registry to store images</h1>
 
@@ -270,7 +272,7 @@ nc-server     centos     ff5450d8c273   6 seconds ago    278.8 MB
 
 <p>And, finally, login:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker login artifactory.yourcompanydomain.com:6556
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker login artifactory.yourcompanydomain.com:6556
 
 Username: your.name@yourcompanydomain.com
 Password:
@@ -283,7 +285,7 @@ Login Succeeded
 
 <p>Here’s the syntax =&gt; docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/] [USERNAME/]NAME[:TAG]</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker tag my-busybox artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test- tag
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker tag my-busybox artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test- tag
 
 # docker push artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag
 The push refers to a repository [artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag] 06cc5a7ff579: Pushed
@@ -292,7 +294,7 @@ size: 940
 </code></pre></div></div>
 
 <p>Checking results:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker images | grep test-tag
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker images | grep test-tag
 REPOSITORY TAG IMAGE ID SIZE
 
 artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox:test-tag  17 minutes ago 1.113 MB
@@ -307,7 +309,7 @@ artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox
 
 <p>Following good automation practices: if you need to apply a number of custom steps to assemble your container, it is a bad idea to spin it and commit it. To solve that problem we use the “Dockerfile”.</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/dockerfile_versioning.png" alt="dockerfile_versioning" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/dockerfile_versioning.png" alt="dockerfile_versioning" /></p>
 
 <ul>
   <li>
@@ -318,7 +320,7 @@ artifactory.yourcompanydomain.com:6556/docker-images/repositories/dev/my-busybox
   </li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM centos
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM centos
 MAINTAINER Marcelo Costa &lt;marceloc@whatever.com&gt;
 
 RUN yum -y install nc
@@ -329,10 +331,10 @@ RUN yum -y install net-tools
   <li>Create a new custom image with the following command (running within the “my-nc- server” directory):</li>
 </ul>
 
-<p><code class="highlighter-rouge"># docker build .</code>
+<p><code class="language-plaintext highlighter-rouge"># docker build .</code>
 You can also introduce the [name-of-the-image]:[tag] notation with the “–tag” parameter:</p>
 
-<p><code class="highlighter-rouge"># docker build –tag my-nc-server:test-tag .</code></p>
+<p><code class="language-plaintext highlighter-rouge"># docker build –tag my-nc-server:test-tag .</code></p>
 
 <p><em>*More info: https://docs.docker.com/engine/userguide/eng-image/docker</em></p>
 
@@ -344,7 +346,7 @@ You can also introduce the [name-of-the-image]:[tag] notation with the “–tag
 
 <p>Here is how you do it:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker save my-busybox &gt;my-busybox.tar
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker save my-busybox &gt;my-busybox.tar
 # scp my-busybox.tar user@somemachine:/home/user/
 
 Uploading….
@@ -376,7 +378,7 @@ You can define “none” if you want to waste a lot of time configuring everyth
 
 <p>An example of the how the network interfaces connect with each other:</p>
 
-<p><img src="https://themarcelor.github.com/blog/assets/img/docker_networking.png" alt="docker_networking" /></p>
+<p><img src="https://raw.githubusercontent.com/themarcelor/blog/master/assets/img/docker_networking.png" alt="docker_networking" /></p>
 
 <p>Be aware that scripts under “/etc/sysconfig/network-scripts” that contain the name of that interface can potentially block this flow, depending on its instructions.</p>
 
@@ -388,7 +390,7 @@ You can define “none” if you want to waste a lot of time configuring everyth
 
 <h2 id="docker-top">docker top</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker top nc-server
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker top nc-server
 
 UID PID PPID C STIME TTY TIME CMD
 
@@ -397,7 +399,7 @@ root 28524 28510 0 11:36 pts/1 00:00:00 nc -vv -l 8080
 
 <h2 id="docker-stats">docker stats</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker stats nc-server
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># docker stats nc-server
 CONTAINER CPU % MEM USAGE / LIMIT MEM % NET I/O BLOCK I/O PIDS
 
 nc-server 0.00% 9.769MB/12.42GB 0.08% 48B/648B 9.409MB/0B 0
@@ -405,7 +407,7 @@ nc-server 0.00% 9.769MB/12.42GB 0.08% 48B/648B 9.409MB/0B 0
 
 <p>Keep in mind:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it &lt;container-name&gt; /bin/bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it &lt;container-name&gt; /bin/bash
 ctrl+p &amp; ctrl+q (return to docker host)
 docker logs -ft &lt;container-name&gt;
 </code></pre></div></div>
