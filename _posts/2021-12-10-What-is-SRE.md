@@ -59,7 +59,7 @@ High latency scenarios can also be monitored along with the success rate and wor
 
 The SR is also a great tool to empower more automation. If we have an easy way to probe into the SR values for each service through a CLI / py-sdk / go-sdk or even a HTTP API, then the possibilities are endless. We could do cool things like:
 
-- Automatically trigger mitigation mechanisms (rollback any recently-deployed version, swing traffic to a different cluster, restart shards, disable feature toggles, check downstream services and automatically check for saturation / cpu || memory pressure and scale up services, etc.).
+- Automatically trigger mitigation mechanisms (rollback any recently-deployed version, swing traffic to a different cluster, restart shards, disable feature toggles, check downstream services and automatically check for saturation(e.g., cpu, memory pressure) and scale up services, etc.).
 - Enable circuit-breaking / throttling for some requests.
 - Automatically notify subject matter experts / service owners.
 
