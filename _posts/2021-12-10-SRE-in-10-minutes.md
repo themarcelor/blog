@@ -4,9 +4,9 @@ author: Marcelo Costa
 ---
 Let us talk about SRE
 
-# What is SRE?
+I noticed that some engineers from Dev teams were curious about the actual role of an SRE and what exactly is our skillset, so I decided to invest some keystrokes to explain some of the stuff we work with and share one common practice used by SREs to monitor the performance of a service.
 
-I noticed that some engineers from Dev teams were curious about the actual role of an SRE and what exactly is our skillset, so I decided to invest some keystrokes to explain some of the stuff we work with.
+# What is SRE?
 
 SRE (Site Reliability Engineering), at its core, is about one thing:
 
@@ -37,7 +37,7 @@ And, to make sure we are doing a good job, we also measure our success through a
 - MTBF (Mean Time Between Failures): The average amount of time a system or component operates without failure. A higher MTBF indicates better reliability and stability over time.
 - MTTR (Mean Time To Recover or Repair): The average time it takes to restore service after a failure has been detected. This includes diagnosing the issue, fixing it, and returning the system to normal operation.
 
-Speaking of success, in the next section let's talk about one cool SLI that is easy to understand and monitor.
+To learn more about each of these SRE responsibilities, let us talk one cool SLI that is easy to understand and monitor.
 
 # The Success Rate
 
@@ -45,7 +45,7 @@ The Success Rate, or just SR, is a simple indicator that can help everyone with 
 
 SR monitoring is a good method to observe customer satisfaction. It can inform if a whole system, as its success and failures bubble up throughout its inter-service communication, is working as expected or not.
 
-The SR drop of a `service_name` can be used as an elegant approach to define the severity of incidents. For example, let's assume there is an entry in a service's inventory system that contains the following guideline: `SR < 99.9% for 5 minutes = *Sev 1*`, then On-Call engineers will know how to initiate the incident management flow through an easy and intuitive process.
+The SR drop of a `service_name` can be used as an elegant approach to define the severity of incidents. For example, let's assume there is an entry in a service catalog that contains the following guideline: `SR < 99.9% for 5 minutes = *Sev 1*`, then On-Call engineers will know how to initiate the incident management flow through an easy and intuitive process.
 
 Such guidelines can also offer some granularity, e.g., let’s say `shopping-cart-service` could face different ranges of SR drops within different time-frames, resulting in incidents with different severities, such as:
 
@@ -55,7 +55,7 @@ Such guidelines can also offer some granularity, e.g., let’s say `shopping-car
 
 Note that we can adjust the severity while incrementing the 9's and decrementing the time-frame OR decrementing the number of 9's and incrementing the time-frame (i.e., we have end-users impacted in both scenarios). However, the severity will vary between services as it should be defined according to the TIER of the service, i.e., it is a common practice to record services in a catalog that contains metadata, which includes a `tier` definition.
 
-High latency scenarios can also be monitored along with the success rate and work with the same time-frame criteria to determine whether the system is severely degraded, e.g., service A was producing minutely-aggregated response times above 900ms for more than 5 minutes, which is more than half of the number of minutes of allowed downtime in a week considering a 99.9% SLO (as per https://uptime.is/99.9), hence, a Sev2 incident should be declared (this "allowed downtime" is also known as *Error Budget*). If services are configured to raise timeout errors, high latency issues can also be captured by the success rate monitoring.
+High latency scenarios can also be monitored along with the success rate and work with the same time-frame criteria to determine whether the system is severely degraded, e.g., service A was producing minutely-aggregated response times above 900ms for more than 5 minutes, which is more than half of the number of minutes of allowed downtime in a week considering a 99.9% SLO (as per [https://uptime.is/99.9](https://uptime.is/99.9)), hence, a Sev2 incident should be declared (this "allowed downtime" is also known as *Error Budget*). If services are configured to raise timeout errors, high latency issues can also be captured by the success rate monitoring.
 
 The SR is also a great tool to empower more automation. If we have an easy way to probe into the SR values for each service through a CLI / py-sdk / go-sdk or even a HTTP API, then the possibilities are endless. We could do cool things like:
 
@@ -69,7 +69,8 @@ The SR is a very basic, yet very powerful SLI.
 
 To illustrate, let us consider web-based / HTTP RESTful API micro-services. We can measure the success of such API services based on the HTTP response codes they produce:
 
-`SR (Success Rate) = 100 * (1 - (num of 5xx's / total num of requests))`
+> `SR (Success Rate) = 
+> 100 * (1 - (num of 5xx's / total num of requests))`
 
 This is the predominant archetype among the pieces of software we usually work with, although the same method can be adopted for other types of services like RPC (Remote Procedure Call) APIs, event workers, etc., as long as there are metrics to distinguish `errors` and the `total` amount of transactions, you can calculate the SR.
 
@@ -86,14 +87,18 @@ Having tools that easily present the SRs from all mission-critical services are 
 Here is an example of how to graph the Success Rate for a service using PromQL (Prometheus Query Language), you can try that in a panel of a Grafana dashboard if you have a Prometheus or Mimir datasource and a service emitting the `http_server_duration_count` metric (which you should get for free by using the [OpenTelemetry automatic instrumentation](https://opentelemetry.io/docs/languages/go/getting-started/#instrument-the-http-server)).
 
 ```
-100 * (1 - ( (sum(rate(http_server_duration_count{service_name="my-service",deployment_environment="prod",http_status_code=~"5.+"
-}[5m]))) or vector(0) / sum(rate(http_server_duration_count{service_name="my-service",deployment_environment="prod",http_status_c
-ode=~".+"}[5m])) ))
+100 * (
+ 1 - (
+  (
+   sum(rate(http_server_duration_count{service_name="my-service",deployment_environment="prod",http_status_code=~"5.+"}[5m]))) or vector(0) / 
+   sum(rate(http_server_duration_count{service_name="my-service",deployment_environment="prod",http_status_code=~".+"}[5m]))
+ )
+)
 ```
 
 I should write a whole other blog post about OTel :D
 
-# How do we mitigate and resolve incidents?
+## How do we restore the Success Rate and mitigate incidents?
 
 SREs can be proactive with the tools we have at our disposal, AWS services configuration, feature flag toggling or rolling back services to previously-stable versions (according to service-specific Runbooks, of course), scaling up resources, or (my personal favorite) using a multi-region traffic swinging mechanism.
 
@@ -101,6 +106,14 @@ Whenever the incident involves a complex problem that requires idea-bouncing wit
 
 A common practice is to centralize the communication around the incident (usually an ephemeral Slack channel is automatically created through SRE tools), then the *Incident Commander* (IC) drives the incident management and we all tackle the problem together to pursue a mitigation.
 
+# Putting it all together
+
+In this article, we explored SRE capabilities by discussing the success rate SLI as a practical example of a method to observe the performance of one or more services, covering some of the nuance around priorities based on tier definition and incident severity definition (aligned with business impact). We also briefly touched on how an engineering org can leverage a service catalog for discoverability, eliminating communication overhead, streamlining processes and empowering tooling orchestrations. We talked about on-call rotations, escalation, incident mitigation and post mortems and we also covered an example of a HTTP API service and how its SR can be observed with Prometheus metrics.
+
+The goal here was to share some concepts and provide just enough information to get your feet wet with SRE and spark some ideas for you to start building some tooling and processes around your service's success rate monitoring.
+
 # What else?
 
-Well. That's it for now... There are several other topics we could discuss but this first blog post should unveil lots of interesting details for SRE neophytes. I hope you enjoyed this post!
+Well. That's it for now... There are many things to unpack for each of these topics and there are several other ones we could discuss but this first blog post should unveil lots of interesting details for SRE neophytes.
+
+I hope you enjoyed this post!
